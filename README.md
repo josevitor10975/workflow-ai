@@ -1,204 +1,108 @@
-
-````markdown
 # Workflow.ai
 
 > Compare AI models, evaluate their results, and turn the best approach into your development workflow.
+
+[![Status](https://img.shields.io/badge/status-in%20development-yellow)]()
+[![Version](https://img.shields.io/badge/version-v0.1-blue)]()
+[![Stage](https://img.shields.io/badge/stage-MVP-orange)]()
+[![License](https://img.shields.io/badge/license-TBD-lightgrey)]()
 
 **Workflow.ai** is a platform for running controlled experiments with multiple AI models on the same task, comparing their outputs, evaluating the resulting artifacts, and selecting the most suitable approach for continued development.
 
 ---
 
-## Product Status
+## Table of Contents
 
-**Version:** `v0.1`  
-**Stage:** MVP  
-**Status:** In Development
+- [Overview](#overview)
+- [The Problem](#the-problem)
+- [Product Vision](#product-vision)
+- [Core Concepts](#core-concepts)
+- [Core User Flow](#core-user-flow)
+- [MVP Scope](#mvp-scope)
+- [Functional Requirements](#functional-requirements)
+- [Git Workflow](#git-workflow)
+- [Evaluation Architecture](#evaluation-architecture)
+- [Metrics](#metrics)
+- [Application Screens](#application-screens)
+- [Data Model](#data-model)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Security Requirements](#security-requirements)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [MVP Constraints](#mvp-constraints)
+- [Monetization](#monetization)
+- [Design Principles](#design-principles)
+- [Project Structure](#project-structure)
+- [Roadmap](#roadmap)
+- [Success Criteria — v0.1](#success-criteria--v01)
+- [License](#license)
 
 ---
 
-## 1. Overview
+## Overview
 
-AI models can produce significantly different results when solving the same problem.
+AI models can produce significantly different results when solving the same problem. Developers often need to manually switch between providers, repeat the same prompt, compare responses, inspect generated code or interfaces, and decide which result is most useful.
 
-Developers often need to manually switch between different AI providers, repeat the same prompt, compare responses, inspect generated code or interfaces, and decide which result is the most useful.
-
-Workflow.ai aims to centralize this process.
-
-Instead of asking:
+**Workflow.ai** centralizes this process. Instead of asking:
 
 > "Which AI is the best?"
 
-Workflow.ai focuses on a more practical question:
+it focuses on a more practical question:
 
 > "Which model produced the best result for this task under the criteria I defined?"
 
-The platform allows users to create a workspace, configure AI providers, create a Battle, run the same task across multiple models, compare the resulting artifacts, evaluate them, and select the result they want to continue developing.
+Users create a workspace, configure AI providers, create a **Battle**, run the same task across multiple models, compare the resulting **artifacts**, evaluate them, and select the result they want to continue developing.
 
 ---
 
-# 2. Problem
+## The Problem
 
-Working with multiple AI models currently involves considerable manual effort.
-
-A typical workflow looks like:
+Working with multiple AI models currently involves considerable manual effort:
 
 ```text
-Choose AI
-   ↓
-Write prompt
-   ↓
-Run task
-   ↓
-Inspect result
-   ↓
-Switch AI
-   ↓
-Repeat task
-   ↓
-Compare results manually
-   ↓
-Choose a result
-   ↓
-Continue development
-````
+Choose AI → Write prompt → Run task → Inspect result → Switch AI
+   → Repeat task → Compare results manually → Choose a result → Continue development
+```
 
-This process becomes inefficient when comparing multiple models or performing repeated experiments.
-
-Workflow.ai proposes a structured workflow:
+Workflow.ai replaces this with a structured pipeline:
 
 ```text
-Workspace
-   ↓
-Battle
-   ↓
-Same Task
-   ↓
-Multiple AI Models
-   ↓
-Artifacts
-   ↓
-Evaluation
-   ↓
-Ranking
-   ↓
-Select Result
-   ↓
-Continue Development
+Workspace → Battle → Same Task → Multiple AI Models
+   → Artifacts → Evaluation → Ranking → Select Result → Continue Development
 ```
 
 ---
 
-# 3. Product Vision
+## Product Vision
 
-Workflow.ai aims to become an experimentation and development environment for AI-assisted software workflows.
+The long-term vision connects:
 
-The long-term vision is to connect:
-
-```text
-AI Model Comparison
-        +
-Evaluation
-        +
-Artifact Management
-        +
-Development Workflow
-        +
-Version Control
+```
+AI Model Comparison + Evaluation + Artifact Management + Development Workflow + Version Control
 ```
 
-The MVP focuses on establishing the core loop:
+The MVP establishes the core loop:
 
 > **Compare → Evaluate → Choose → Develop**
 
 ---
 
-# 4. Core Concepts
+## Core Concepts
 
-## 4.1 User
+| Concept           | Description                                                                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **User**          | Creates workspaces, configures providers, runs Battles, evaluates and selects artifacts.                                                  |
+| **Provider**      | An AI service (OpenAI, Anthropic, Google, xAI) configured at the account level. Credentials are not duplicated across workspaces.         |
+| **Model**         | A specific model exposed by a Provider (e.g. GPT, Claude, Gemini). The Battle UI focuses on Models while showing the associated Provider. |
+| **Workspace**     | A project/development environment. In `v0.1`, each Workspace contains one Battle.                                                         |
+| **Battle**        | A controlled experiment: multiple models receive the same task under the same conditions, each producing an independent artifact.         |
+| **Artifact**      | The result produced by a model — code, files, UI, documentation, text, configuration, or project structure.                               |
+| **Evaluation**    | Scores an artifact (0–10) against configurable criteria: Quality, Precision, UX/UI, Code Quality, Performance, Requirements.              |
+| **Ranking**       | Orders artifacts by evaluation score **within a given Battle** — not a universal AI ranking.                                              |
+| **Main Artifact** | The artifact selected as the Workspace's primary result. The top-scoring artifact is recommended, but the user can override it.           |
+| **Experiment**    | Non-selected artifacts, preserved so alternative approaches aren't lost.                                                                  |
 
-The person using Workflow.ai.
-
-A user can:
-
-* create an account;
-* configure AI providers;
-* create workspaces;
-* create Battles;
-* select AI models;
-* evaluate artifacts;
-* select a winning artifact;
-* connect repositories;
-* continue development.
-
----
-
-## 4.2 Provider
-
-An AI service that provides access to one or more models.
-
-Examples:
-
-* OpenAI
-* Anthropic
-* Google
-* xAI
-
-Providers are configured at the **user account level**.
-
-```text
-User
- ├── OpenAI credentials
- ├── Anthropic credentials
- ├── Google credentials
- └── xAI credentials
-```
-
-Credentials are not duplicated across workspaces.
-
----
-
-## 4.3 Model
-
-A specific AI model provided by an AI Provider.
-
-Example:
-
-```text
-GPT
-Provider: OpenAI
-
-Claude
-Provider: Anthropic
-
-Gemini
-Provider: Google
-```
-
-The Battle interface should primarily focus on **Models**, while displaying their associated Provider.
-
----
-
-## 4.4 Workspace
-
-A workspace represents a project or development environment.
-
-Example:
-
-```text
-Workspace
-└── SaaS Landing Page
-```
-
-A Workspace can contain:
-
-* project information;
-* Battles;
-* artifacts;
-* the selected Main Artifact;
-* experiments;
-* GitHub integration.
-
-### MVP Relationship
+**MVP hierarchy:**
 
 ```text
 User
@@ -209,420 +113,146 @@ User
            └── Artifact
 ```
 
-In `v0.1`, each Workspace contains one Battle.
-
-The architecture should support multiple Battles per Workspace in future versions.
-
 ---
 
-## 4.5 Battle
-
-A Battle is a controlled AI experiment.
-
-Multiple AI models receive the same task under the same conditions.
-
-Example:
+## Core User Flow
 
 ```text
-Task:
-"Build a SaaS landing page for a project management platform."
-
-Models:
-
-GPT
-Claude
-Gemini
-```
-
-Each model produces an independent artifact.
-
-The purpose is not to declare a universally superior AI model.
-
-The purpose is to determine which result performs better **for the specific task and evaluation criteria**.
-
----
-
-## 4.6 Artifact
-
-An Artifact is the result produced by an AI model during a Battle.
-
-Depending on the task, an Artifact may contain:
-
-* source code;
-* files;
-* UI;
-* documentation;
-* text;
-* configuration;
-* project structures;
-* other generated outputs.
-
-Workflow.ai should prioritize showing the **actual resulting artifact**, rather than only displaying the model's textual response.
-
----
-
-## 4.7 Evaluation
-
-An Evaluation measures the quality of an Artifact according to predefined criteria.
-
-Example criteria:
-
-```text
-Quality
-Precision
-UX / UI
-Code Quality
-Performance
-Requirements
-```
-
-Each criterion can receive a score from `0` to `10`.
-
----
-
-## 4.8 Ranking
-
-After evaluation, Workflow.ai generates a ranking of the artifacts.
-
-Example:
-
-```text
-1. Claude     8.9
-2. GPT        8.5
-3. Gemini     7.8
-```
-
-The ranking represents performance **within the Battle**.
-
-It should not be presented as a universal ranking of AI models.
-
----
-
-## 4.9 Main Artifact
-
-The user can select one Artifact as the main result of the Workspace.
-
-The highest-scoring Artifact can be presented as the recommended choice:
-
-> Recommended Artifact — based on your evaluation criteria.
-
-However, the user always retains the ability to manually select another Artifact.
-
----
-
-## 4.10 Experiment
-
-Artifacts that were not selected as the Main Artifact can be preserved as Experiments.
-
-This allows users to revisit alternative approaches without losing previous work.
-
----
-
-# 5. Core User Flow
-
-```text
-AUTH
-  ↓
-HOME
-  ↓
-CREATE WORKSPACE
-  ↓
-CREATE BATTLE
-  ↓
-SELECT MODELS
-  ↓
-DEFINE TASK
-  ↓
-CONFIGURE EVALUATION
-  ↓
-RUN BATTLE
-  ↓
-BATTLE ROOM
-  ↓
-ARTIFACTS
-  ↓
-EVALUATION
-  ↓
-RANKING
-  ↓
-SELECT ARTIFACT
-  ↓
-MAIN / EXPERIMENT
-  ↓
-GITHUB
-  ↓
-CONTINUE DEVELOPMENT
+Auth → Home → Create Workspace → Create Battle → Select Models → Define Task
+   → Configure Evaluation → Run Battle → Battle Room → Artifacts
+   → Evaluation → Ranking → Select Artifact → Main / Experiment
+   → GitHub → Continue Development
 ```
 
 ---
 
-# 6. MVP Scope
+## MVP Scope
 
-The `v0.1` MVP must allow a user to complete the following flow:
+The `v0.1` MVP allows a user to complete this end-to-end flow:
 
 ```text
-Create Account
-    ↓
-Configure Providers
-    ↓
-Create Workspace
-    ↓
-Create Battle
-    ↓
-Select Models
-    ↓
-Submit Same Task
-    ↓
-Execute Models
-    ↓
-Monitor Execution
-    ↓
-View Artifacts
-    ↓
-Evaluate Results
-    ↓
-View Ranking
-    ↓
-Select Artifact
-    ↓
-Set Main Artifact
+Create Account → Configure Providers → Create Workspace → Create Battle
+   → Select Models → Submit Same Task → Execute Models → Monitor Execution
+   → View Artifacts → Evaluate Results → View Ranking
+   → Select Artifact → Set Main Artifact
 ```
 
-GitHub integration is included as an important development workflow capability.
+GitHub integration is included as a core development-workflow capability.
 
 ---
 
-# 7. Functional Requirements
+## Functional Requirements
 
-## RF01 — User Registration
+<details>
+<summary><strong>RF01 — User Registration</strong></summary>
 
 The system must allow users to create an account.
 
----
+</details>
 
-## RF02 — Authentication
+<details>
+<summary><strong>RF02 — Authentication</strong></summary>
 
-The system must allow users to:
+Users must be able to sign in, sign out, maintain an authenticated session, and recover access when applicable.
 
-* sign in;
-* sign out;
-* maintain an authenticated session;
-* recover access when applicable.
+Supported providers: Email/password, GitHub, Google.
 
-Supported authentication providers may include:
+</details>
 
-* Email and password;
-* GitHub;
-* Google.
+<details>
+<summary><strong>RF03 — Provider Management</strong></summary>
 
----
+Users must be able to add, validate, view the status of, remove, and manage multiple provider credentials. API keys must not be unnecessarily exposed to the frontend, and stored credentials must be protected.
 
-## RF03 — Provider Management
+</details>
 
-The system must allow users to connect AI Providers.
+<details>
+<summary><strong>RF04 — Workspace Management</strong></summary>
 
-Users must be able to:
+Create, view, open, edit, and delete Workspaces. A Workspace belongs to exactly one User.
 
-* add provider credentials;
-* validate credentials;
-* view connection status;
-* remove credentials;
-* manage multiple providers.
+</details>
 
-API keys must not be exposed unnecessarily to the frontend.
+<details>
+<summary><strong>RF05 — Battle Creation</strong></summary>
 
-Stored credentials must be protected.
+A Battle within a Workspace must contain: name, description, task briefing, selected models, evaluation configuration, and execution settings.
 
----
+</details>
 
-## RF04 — Workspace Management
+<details>
+<summary><strong>RF06 — Model Selection</strong></summary>
 
-The system must allow users to:
-
-* create a Workspace;
-* view Workspaces;
-* open a Workspace;
-* edit Workspace information;
-* delete a Workspace.
-
-A Workspace must belong to exactly one User.
-
----
-
-## RF05 — Battle Creation
-
-The system must allow users to create a Battle inside a Workspace.
-
-A Battle should contain:
-
-* name;
-* description;
-* task briefing;
-* selected models;
-* evaluation configuration;
-* execution settings.
-
----
-
-## RF06 — Model Selection
-
-The user must be able to select multiple AI models for a Battle.
-
-Each model must display its associated Provider.
-
-Example:
+Users select multiple models per Battle; each displays its Provider and connection status. If a required provider isn't connected, the user can connect it without leaving the Battle creation flow.
 
 ```text
-GPT
-OpenAI
-Connected
-
-Claude
-Anthropic
-Connected
-
-Gemini
-Google
-Not connected
-[Connect]
+GPT      · OpenAI    · Connected
+Claude   · Anthropic · Connected
+Gemini   · Google    · Not connected [Connect]
 ```
 
-If a required Provider is not connected, the user must be able to connect it without abandoning the Battle creation flow.
+</details>
 
----
+<details>
+<summary><strong>RF07 — Battle Execution</strong></summary>
 
-## RF07 — Battle Execution
+Executes the same task against each selected model, independently. Records: Provider, Model, start/end time, status, input/output/total tokens, cost, latency, and errors.
 
-The system must execute the same task against each selected model.
+Statuses: `Queued` · `Running` · `Completed` · `Failed`
 
-Each execution must be independent.
+</details>
 
-The system should record:
+<details>
+<summary><strong>RF08 — Battle Room</strong></summary>
 
-* Provider;
-* Model;
-* start time;
-* end time;
-* execution status;
-* input tokens;
-* output tokens;
-* total tokens;
-* estimated/actual cost;
-* latency;
-* errors.
+Real-time monitoring: selected models, execution status, progress, elapsed time, completed/failed models, and errors.
 
-Possible statuses:
+</details>
 
-```text
-Queued
-Running
-Completed
-Failed
-```
+<details>
+<summary><strong>RF09 — Artifact Visualization</strong></summary>
 
----
+Inspect the actual generated artifact (code, files, interfaces, documentation, text, structures), with side-by-side comparison where applicable.
 
-## RF08 — Battle Room
+</details>
 
-The system must provide a Battle Room for monitoring execution.
+<details>
+<summary><strong>RF10 — Manual Evaluation</strong></summary>
 
-The Battle Room should display:
+Configurable criteria (Quality, Precision, UX/UI, Code Quality, Performance, Requirements) scored 0–10.
 
-* selected models;
-* execution status;
-* progress;
-* elapsed time;
-* completed models;
-* failed models;
-* execution errors when applicable.
+</details>
 
----
+<details>
+<summary><strong>RF11 — Ranking</strong></summary>
 
-## RF09 — Artifact Visualization
+Displays Artifact, Model, Provider, total score, per-criterion scores, and relevant execution metrics.
 
-The system must allow users to inspect the actual Artifact generated by each model.
+</details>
 
-Artifacts may include:
+<details>
+<summary><strong>RF12 — Artifact Selection</strong></summary>
 
-* code;
-* files;
-* interfaces;
-* documentation;
-* text;
-* project structures.
+Users select an artifact post-evaluation; the top-scoring one is recommended but can be overridden.
 
-The interface should support side-by-side comparison when applicable.
+</details>
 
----
+<details>
+<summary><strong>RF13 — Artifact Preservation</strong></summary>
 
-## RF10 — Manual Evaluation
+Artifacts remain accessible after a Battle ends — losing results are never auto-discarded.
 
-Users must be able to evaluate Artifacts manually.
+</details>
 
-The MVP should support configurable criteria such as:
+<details>
+<summary><strong>RF14 — Main Artifact</strong></summary>
 
-```text
-Quality
-Precision
-UX / UI
-Code Quality
-Performance
-Requirements
-```
+The selected artifact can become the Workspace's Main Artifact, representing the result chosen for continued development.
 
-Scores should use a `0–10` scale.
+</details>
 
----
-
-## RF11 — Ranking
-
-The system must calculate and display a ranking based on the configured evaluation criteria.
-
-The ranking should show:
-
-* Artifact;
-* Model;
-* Provider;
-* total score;
-* individual criterion scores;
-* relevant execution metrics.
-
----
-
-## RF12 — Artifact Selection
-
-The system must allow users to select an Artifact after evaluation.
-
-The highest-scoring Artifact should be presented as a recommendation when applicable.
-
-The user must be able to override the recommendation.
-
----
-
-## RF13 — Artifact Preservation
-
-Artifacts generated during a Battle must remain accessible after the Battle ends.
-
-The system must not automatically discard losing results.
-
----
-
-## RF14 — Main Artifact
-
-The selected Artifact can become the Workspace's Main Artifact.
-
-```text
-Workspace
-└── Main Artifact
-```
-
-The Main Artifact represents the result selected for continued development.
-
----
-
-## RF15 — Experiments
-
-Alternative Artifacts may be preserved as Experiments.
+<details>
+<summary><strong>RF15 — Experiments</strong></summary>
 
 ```text
 Workspace
@@ -633,361 +263,101 @@ Workspace
     └── GPT
 ```
 
-This allows users to revisit alternative solutions.
+</details>
 
----
+<details>
+<summary><strong>RF16 — GitHub Integration</strong></summary>
 
-## RF16 — GitHub Integration
-
-The system must allow users to connect a GitHub repository to a Workspace.
-
-The user should be able to:
-
-* connect GitHub;
-* select a repository;
-* select a branch;
-* export an Artifact;
-* continue development from the selected Artifact.
-
-A possible workflow is:
+Connect GitHub, select a repository/branch, export an artifact, and continue development from it:
 
 ```text
-Battle
-  ↓
-Evaluate
-  ↓
-Select Artifact
-  ↓
-Main Artifact
-  ↓
-GitHub Repository
-  ↓
-Development
+Battle → Evaluate → Select Artifact → Main Artifact → GitHub Repository → Development
 ```
+
+</details>
 
 ---
 
-# 8. Git Workflow
+## Git Workflow
 
-Workflow.ai should treat Git branches as a version-control representation of AI experiments rather than as the primary domain model.
-
-A possible structure:
+Git branches represent AI experiments rather than the primary domain model:
 
 ```text
 main
-│
 ├── agent/claude
 ├── agent/gemini
 └── agent/gpt
 ```
 
-Each AI-generated approach can remain isolated.
-
-The user can inspect the alternatives and decide which approach should become the main development line.
-
-Example:
+Each AI-generated approach stays isolated until the user selects one to promote:
 
 ```text
 main
-  ↓
-Battle
-  ├── Claude Artifact
-  ├── Gemini Artifact
-  └── GPT Artifact
-          ↓
-     User selects Claude
-          ↓
-     Claude → Main
+  └── Battle
+       ├── Claude Artifact
+       ├── Gemini Artifact
+       └── GPT Artifact
+              └── User selects Claude → Claude becomes Main
 ```
 
 ---
 
-# 9. Evaluation Architecture
+## Evaluation Architecture
 
-The MVP starts with manual evaluation.
+The MVP starts with **manual evaluation**. Future versions may add:
 
-Future versions may support automated evaluation.
-
-Potential evaluation mechanisms include:
-
-```text
-Human Evaluation
-        +
-Automated Tests
-        +
-AI Evaluation
-        +
-Objective Metrics
+```
+Human Evaluation + Automated Tests + AI Evaluation + Objective Metrics
 ```
 
-Potential objective metrics include:
+Potential objective metrics: Lighthouse performance, accessibility tests, functional tests, visual regression, HTML validation, execution time, token usage, cost.
 
-* Lighthouse performance;
-* accessibility tests;
-* functional tests;
-* visual regression;
-* HTML validation;
-* execution time;
-* token usage;
-* cost.
-
-### AI Judges
-
-Future versions may allow one model to evaluate another model's result.
-
-For example:
-
-```text
-Claude → produces Artifact A
-Gemini → evaluates Artifact A
-
-GPT → produces Artifact B
-Claude → evaluates Artifact B
-```
-
-Multiple judges can distribute evaluator bias, but they do not eliminate it.
-
-The system should therefore distinguish between:
-
-* objective metrics;
-* human evaluation;
-* AI evaluation;
-* evaluator agreement.
+**AI Judges (future):** one model evaluates another's result — e.g. Gemini evaluates Claude's artifact, Claude evaluates GPT's. Multiple judges distribute evaluator bias but don't eliminate it, so the system distinguishes objective metrics, human evaluation, AI evaluation, and evaluator agreement.
 
 ---
 
-# 10. Metrics
+## Metrics
 
-Workflow.ai should track relevant execution metrics.
-
-### Token Metrics
-
-```text
-Input Tokens
-Output Tokens
-Total Tokens
-```
-
-### Cost
-
-Cost must be calculated according to the Provider and Model pricing.
-
-Token count must not be treated as equivalent to monetary cost.
-
-### Latency
-
-The system should record:
-
-```text
-Start Time
-End Time
-Execution Duration
-```
-
-### Tool Calls
-
-Future versions may record the number and type of tools invoked by an AI agent.
+| Category                  | Fields                                                     |
+| ------------------------- | ---------------------------------------------------------- |
+| **Tokens**                | Input, Output, Total                                       |
+| **Cost**                  | Calculated per Provider/Model pricing — token count ≠ cost |
+| **Latency**               | Start time, End time, Execution duration                   |
+| **Tool Calls** _(future)_ | Number and type of tools invoked by an AI agent            |
 
 ---
 
-# 11. Main Application Navigation
+## Application Screens
 
-The application should provide a consistent navigation structure.
+**Navigation:** Home · Workspaces · Battles · History · Settings · Upgrade to Pro · Profile / Logout
 
-```text
-Workflow.ai
-
-Home
-Workspaces
-Battles
-History
-Settings
-
-────────────────
-
-Upgrade to Pro
-
-User
-Profile
-Logout
-```
+- **Login** — Email/password, GitHub, Google auth, account creation, password recovery
+- **Home** — Welcome, Create Workspace, recent Workspaces/Battles, plan info
+- **Workspaces** — Search, create, open, edit, delete
+- **Workspace** — Overview, Battles, Artifacts, Experiments, Settings
+- **Create Battle** — Battle Info → Task Briefing → Select Models → Evaluation Criteria → Advanced Settings → Create
+- **Battle Room** — Real-time execution view
+- **Battle Results** — Artifacts, comparison, evaluations, metrics, ranking, recommended artifact, selection
+- **Settings** — General, Providers, GitHub, Security, Billing
 
 ---
 
-# 12. Main Screens
-
-## Login
-
-The authentication screen.
-
-Capabilities:
-
-* Email login;
-* Password login;
-* GitHub authentication;
-* Google authentication;
-* Account creation;
-* Password recovery.
-
----
-
-## Home
-
-The main dashboard.
-
-Should provide:
-
-* welcome message;
-* Create Workspace action;
-* recent Workspaces;
-* recent Battles;
-* plan information.
-
----
-
-## Workspaces
-
-Displays all user Workspaces.
-
-Capabilities:
-
-* search;
-* create;
-* open;
-* edit;
-* delete.
-
----
-
-## Workspace
-
-Displays the current project environment.
-
-Example:
-
-```text
-SaaS Landing Page
-
-Overview
-Battles
-Artifacts
-Experiments
-Settings
-```
-
-The Workspace should provide access to the Battle and its resulting Artifacts.
-
----
-
-## Create Battle
-
-Allows the user to configure a new Battle.
-
-Main sections:
-
-```text
-Battle Information
-        ↓
-Task Briefing
-        ↓
-Select Models
-        ↓
-Evaluation Criteria
-        ↓
-Advanced Settings
-        ↓
-Create Battle
-```
-
----
-
-## Battle Room
-
-Displays the execution of the Battle in real time.
-
----
-
-## Battle Results
-
-Displays:
-
-* Artifacts;
-* comparison;
-* evaluations;
-* metrics;
-* ranking;
-* recommended Artifact;
-* artifact selection.
-
----
-
-## Settings
-
-Account-level configuration.
-
-Sections may include:
-
-```text
-General
-Providers
-GitHub
-Security
-Billing
-```
-
-Provider credentials belong here rather than inside individual Workspaces.
-
----
-
-# 13. Workspace Settings
-
-Workspace settings should contain:
-
-```text
-General
-Battle Defaults
-GitHub
-Danger Zone
-```
-
-API credentials are not stored at Workspace level in the MVP.
-
----
-
-# 14. Data Model
-
-A simplified domain model:
+## Data Model
 
 ```text
 User
- │
  ├── ProviderConnection
- │
  └── Workspace
-       │
        └── Battle
-             │
              ├── Artifact
-             │
              └── Evaluation
 ```
 
-Core entities:
-
-```text
-User
-Provider
-Model
-ProviderConnection
-Workspace
-Battle
-Artifact
-Evaluation
-```
+Core entities: `User` · `Provider` · `Model` · `ProviderConnection` · `Workspace` · `Battle` · `Artifact` · `Evaluation`
 
 ---
 
-# 15. Suggested Architecture
+## Architecture
 
 ```text
 ┌─────────────────────────────┐
@@ -1005,7 +375,7 @@ Evaluation
        ▼                ▼
 ┌─────────────┐  ┌─────────────┐
 │ PostgreSQL  │  │ AI Providers│
-│   Prisma    │  │ APIs        │
+│   Prisma    │  │    APIs     │
 └─────────────┘  └─────────────┘
                        │
              ┌─────────┼─────────┐
@@ -1015,350 +385,87 @@ Evaluation
 
 ---
 
-# 16. Technology Stack
+## Tech Stack
 
-The initial stack is expected to use:
-
-### Frontend
-
-* React
-* Vite
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
-
-### Backend
-
-* Node.js
-* NestJS
-* TypeScript
-
-### Database
-
-* PostgreSQL
-* Prisma ORM
-
-### Authentication
-
-* JWT
-* OAuth providers where applicable
-
-### AI Integration
-
-Provider-specific API adapters.
-
-The application should use an abstraction layer so that adding a new provider does not require rewriting the Battle system.
+**Frontend:** React · Vite · TypeScript · Tailwind CSS · shadcn/ui
+**Backend:** Node.js · NestJS · TypeScript
+**Database:** PostgreSQL · Prisma ORM
+**Auth:** JWT · OAuth providers
+**AI Integration:** Provider-specific adapters behind a common abstraction layer, so adding a provider doesn't require rewriting the Battle system.
 
 ---
 
-# 17. Security Requirements
+## Security Requirements
 
-API credentials are sensitive application data.
-
-The system must:
-
-* encrypt stored credentials;
-* never expose complete API keys after storage;
-* avoid logging API keys;
-* avoid storing credentials in source code;
-* avoid sending credentials unnecessarily to the frontend;
-* isolate provider credentials from generated Artifacts;
-* validate provider connections securely.
-
-Example:
+- Encrypt stored credentials
+- Never expose complete API keys after storage
+- Avoid logging API keys or storing them in source code
+- Avoid sending credentials unnecessarily to the frontend
+- Isolate provider credentials from generated artifacts
+- Validate provider connections securely
 
 ```text
-Frontend
-   │
-   │ Provider connection request
-   ▼
-Backend
-   │
-   ├── Validate credential
-   ├── Encrypt credential
-   └── Store securely
+Frontend → Provider connection request → Backend
+    ├── Validate credential
+    ├── Encrypt credential
+    └── Store securely
 ```
 
 ---
 
-# 18. Non-Functional Requirements
+## Non-Functional Requirements
 
-## Performance
+**Performance**
 
-Initial target:
-
-```text
-API response:        ≤ 2s
+```
+API response:       ≤ 2s
 AI execution:        provider-dependent
 Battle evaluation:   provider-dependent
 ```
 
-AI execution time must not be treated as equivalent to API response latency.
+**Reliability** — isolate failed model executions, preserve completed artifacts, report provider errors, allow execution status recovery. A single model failure must not invalidate the whole Battle.
 
----
-
-## Reliability
-
-The system must:
-
-* isolate failed model executions;
-* preserve completed Artifacts;
-* report provider errors;
-* allow Battle execution status to be recovered.
-
-A single model failure should not necessarily invalidate the entire Battle.
-
----
-
-## Scalability
-
-The Battle execution architecture should support asynchronous processing.
-
-Conceptually:
+**Scalability** — asynchronous execution queue:
 
 ```text
-Battle
-  ↓
-Execution Queue
-  ├── Model A
-  ├── Model B
-  ├── Model C
-  └── Model D
-```
-
-This allows the system to scale beyond the MVP.
-
----
-
-# 19. MVP Constraints
-
-The following features are intentionally outside the initial MVP:
-
-* MCP integration;
-* advanced AI agent skills;
-* team workspaces;
-* organization management;
-* SSO;
-* advanced collaboration;
-* complex agent orchestration;
-* fully automated benchmarking;
-* sophisticated AI judge systems;
-* large-scale workflow automation.
-
-These features may be introduced in future versions.
-
----
-
-# 20. Monetization Direction
-
-The core product value is not simply comparing AI models.
-
-The value comes from reducing the time required to:
-
-```text
-Experiment
-   ↓
-Compare
-   ↓
-Evaluate
-   ↓
-Select
-   ↓
-Develop
-```
-
-A possible pricing structure:
-
-### Free
-
-* Limited Workspaces
-* Limited Battles
-* Limited model executions
-* Limited history
-
-### Pro
-
-* More Battles
-* More models/providers
-* Advanced evaluation
-* AI-assisted evaluation
-* Extended history
-* Artifact comparison
-* GitHub integration
-* Export capabilities
-* Re-running experiments
-
-### Team
-
-Future version:
-
-* Shared Workspaces
-* Permissions
-* Organization management
-* Centralized billing
-* Audit logs
-* Usage controls
-* SSO
-
----
-
-# 21. Product Retention Loop
-
-The long-term product loop is:
-
-```text
-Create
-  ↓
-Compare
-  ↓
-Evaluate
-  ↓
-Choose
-  ↓
-Develop
-  ↓
-Encounter New Task
-  ↓
-Battle Again
-  ↓
-Compare
-```
-
-This creates a continuous AI-assisted development workflow rather than a one-time benchmarking tool.
-
----
-
-# 22. Roadmap
-
-## v0.1 — MVP
-
-* [ ] Authentication
-* [ ] Provider connections
-* [ ] Workspace creation
-* [ ] Battle creation
-* [ ] Model selection
-* [ ] AI execution
-* [ ] Battle Room
-* [ ] Artifact visualization
-* [ ] Manual evaluation
-* [ ] Ranking
-* [ ] Artifact selection
-* [ ] Main Artifact
-* [ ] Experiment preservation
-* [ ] GitHub integration
-
----
-
-## v0.2 — Automated Evaluation
-
-* [ ] Automated evaluation
-* [ ] AI Judges
-* [ ] Objective metrics
-* [ ] Evaluation consensus
-* [ ] Advanced artifact comparison
-* [ ] Battle history and analytics
-
----
-
-## v0.3 — Development Workflow
-
-* [ ] Agent branches
-* [ ] Artifact-to-branch synchronization
-* [ ] GitHub pull request workflow
-* [ ] Versioned experiments
-* [ ] Re-run previous Battles
-* [ ] Improved development continuity
-
----
-
-## v0.4 — Collaboration
-
-* [ ] Team Workspaces
-* [ ] Roles and permissions
-* [ ] Shared Battles
-* [ ] Organization management
-* [ ] Usage controls
-* [ ] Audit logs
-
----
-
-# 23. Success Criteria for v0.1
-
-The MVP should be considered functional when a user can complete the following scenario without leaving Workflow.ai:
-
-```text
-1. Create an account
-2. Connect at least one AI Provider
-3. Create a Workspace
-4. Create a Battle
-5. Select multiple AI Models
-6. Provide the same task
-7. Execute the Battle
-8. Inspect each Artifact
-9. Evaluate the Artifacts
-10. View the ranking
-11. Select an Artifact
-12. Set it as the Workspace Main Artifact
-13. Preserve alternative results
-14. Continue the workflow through GitHub
-```
-
-The MVP succeeds if it transforms a normally manual comparison process into a single structured workflow.
-
----
-
-# 24. Design Principles
-
-### 1. Compare Results, Not Marketing
-
-The product should focus on what models actually produce.
-
-### 2. Context Over Absolutes
-
-There is no universally "best" AI model.
-
-Performance depends on:
-
-* task;
-* prompt;
-* constraints;
-* model;
-* evaluation criteria;
-* execution environment.
-
-### 3. Preserve Experiments
-
-Alternative results are valuable data.
-
-Never discard them unnecessarily.
-
-### 4. User Decides
-
-The system can recommend a result, but the user remains the final decision-maker.
-
-### 5. Development Is the Destination
-
-Comparison should lead somewhere.
-
-The ultimate workflow is:
-
-```text
-AI Experiment
-      ↓
-Artifact
-      ↓
-Evaluation
-      ↓
-Selection
-      ↓
-Development
+Battle → Execution Queue → [Model A, Model B, Model C, Model D]
 ```
 
 ---
 
-# 25. Project Structure
+## MVP Constraints
 
-A possible repository structure:
+Out of scope for `v0.1`: MCP integration, advanced AI agent skills, team workspaces, organization management, SSO, advanced collaboration, complex agent orchestration, fully automated benchmarking, sophisticated AI judge systems, large-scale workflow automation.
+
+---
+
+## Monetization
+
+| Tier                | Includes                                                                                                                                                    |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Free**            | Limited Workspaces, Battles, model executions, and history                                                                                                  |
+| **Pro**             | More Battles/models/providers, advanced & AI-assisted evaluation, extended history, artifact comparison, GitHub integration, export, re-running experiments |
+| **Team** _(future)_ | Shared Workspaces, permissions, org management, centralized billing, audit logs, usage controls, SSO                                                        |
+
+**Retention loop:**
+
+```text
+Create → Compare → Evaluate → Choose → Develop → Encounter New Task → Battle Again → Compare
+```
+
+---
+
+## Design Principles
+
+1. **Compare results, not marketing** — focus on what models actually produce.
+2. **Context over absolutes** — there's no universally "best" model; performance depends on task, prompt, constraints, model, criteria, and environment.
+3. **Preserve experiments** — alternative results are valuable data and are never discarded unnecessarily.
+4. **User decides** — the system can recommend, but the user makes the final call.
+5. **Development is the destination** — comparison should lead to: `AI Experiment → Artifact → Evaluation → Selection → Development`.
+
+---
+
+## Project Structure
 
 ```text
 workflow-ai/
@@ -1373,7 +480,6 @@ workflow-ai/
 │   └── shared/
 │
 ├── docs/
-│
 ├── prisma/
 │
 ├── README.md
@@ -1381,45 +487,76 @@ workflow-ai/
 └── LICENSE
 ```
 
-The exact structure may evolve during implementation.
+---
+
+## Roadmap
+
+### v0.1 — MVP
+
+- [ ] Authentication
+- [ ] Provider connections
+- [ ] Workspace creation
+- [ ] Battle creation
+- [ ] Model selection
+- [ ] AI execution
+- [ ] Battle Room
+- [ ] Artifact visualization
+- [ ] Manual evaluation
+- [ ] Ranking
+- [ ] Artifact selection
+- [ ] Main Artifact
+- [ ] Experiment preservation
+- [ ] GitHub integration
+
+### v0.2 — Automated Evaluation
+
+- [ ] Automated evaluation
+- [ ] AI Judges
+- [ ] Objective metrics
+- [ ] Evaluation consensus
+- [ ] Advanced artifact comparison
+- [ ] Battle history and analytics
+
+### v0.3 — Development Workflow
+
+- [ ] Agent branches
+- [ ] Artifact-to-branch synchronization
+- [ ] GitHub pull request workflow
+- [ ] Versioned experiments
+- [ ] Re-run previous Battles
+- [ ] Improved development continuity
+
+### v0.4 — Collaboration
+
+- [ ] Team Workspaces
+- [ ] Roles and permissions
+- [ ] Shared Battles
+- [ ] Organization management
+- [ ] Usage controls
+- [ ] Audit logs
 
 ---
 
-# 26. Development Philosophy
+## Success Criteria — v0.1
 
-Workflow.ai should be built around a provider-agnostic architecture.
+The MVP is functional when a user can complete this scenario without leaving Workflow.ai:
 
-The Battle system should not depend directly on a specific AI provider.
+1. Create an account
+2. Connect at least one AI Provider
+3. Create a Workspace
+4. Create a Battle
+5. Select multiple AI Models
+6. Provide the same task
+7. Execute the Battle
+8. Inspect each Artifact
+9. Evaluate the Artifacts
+10. View the ranking
+11. Select an Artifact
+12. Set it as the Workspace Main Artifact
+13. Preserve alternative results
+14. Continue the workflow through GitHub
 
-Instead:
-
-```text
-Battle
-   ↓
-AI Provider Adapter
-   ↓
-Model
-   ↓
-Execution
-   ↓
-Normalized Result
-   ↓
-Artifact
-```
-
-This makes it possible to add new providers without changing the core Battle domain.
-
----
-
-# 27. Initial Release Definition
-
-**Workflow.ai v0.1** is not intended to be a complete AI development platform.
-
-It is the first version of a structured AI experimentation workflow.
-
-Its core promise is simple:
-
-> **Run the same task across different AI models, compare what they actually produce, evaluate the results, and choose what to build on.**
+> The MVP succeeds if it transforms a normally manual comparison process into a single structured workflow.
 
 ---
 
@@ -1429,8 +566,4 @@ License to be defined.
 
 ---
 
-## Status
-
-**Workflow.ai v0.1 — MVP**
-
-Currently in development.
+**Status:** Workflow.ai v0.1 — MVP, currently in development.

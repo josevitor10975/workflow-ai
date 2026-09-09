@@ -1,6 +1,3 @@
-Exatamente. A ideia é o **README ser quase um Product Requirements Document (PRD) enxuto**, apresentando o produto, o problema, a proposta, o fluxo e os requisitos do **MVP v0.1**.
-
-Abaixo está em formato de **editor Markdown**, pronto para colocar no `README.md`:
 
 ````markdown
 # Workflow.ai

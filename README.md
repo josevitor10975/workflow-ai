@@ -191,7 +191,9 @@ The current stage focuses on validating the core loop end to end, not on the ful
 **Auth:** JWT · OAuth providers
 **AI Integration:** Provider-specific adapters behind a common abstraction layer, so adding a new provider doesn't require rewriting the Battle system.
 
-<img width="1392" height="768" alt="Gemini_Generated_Image_68o13t68o13t68o1" src="https://github.com/user-attachments/assets/933801f5-8775-46d0-956b-c14efa40ad7e" />
+**Provider credentials are configured once at the account level, not duplicated per workspace:**
+
+<img width="1394" height="768" alt="Gemini_Generated_Image_oc7xooc7xooc7xoo" src="https://github.com/user-attachments/assets/248c5480-c482-4b8c-9f2c-3a147d320026" />
 
 At Battle creation, the user selects **Models** — the associated Provider is shown alongside each one. If a required provider isn't connected yet, the user can connect it from that screen without leaving the Battle creation flow or pasting an API key directly into the Battle form:
 

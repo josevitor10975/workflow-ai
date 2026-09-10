@@ -15,7 +15,7 @@ This is not a finished platform — it's a concept being built and validated one
 
 ## Table of Contents
 
-- [What is Workflow AI?](#what-is-workflowai)
+- [What is Workflow AI?](#what-is-workflow-ai)
 - [The Problem](#the-problem)
 - [How It Works](#how-it-works)
 - [Core Concepts](#core-concepts)
@@ -133,13 +133,38 @@ Artifacts that aren't selected don't disappear — they're preserved as **Experi
 A direction under consideration for representing this in Git is isolating each model's approach on its own branch:
 
 ```text
-main
+master
 ├── agent/claude
 ├── agent/gemini
 └── agent/gpt
 ```
 
 This is a way to represent AI experiments in version control — Git branches are a representation of that process, not the primary domain model of the application. The Battle/Artifact/Evaluation structure described above is what Workflow AI is actually built around.
+
+## Development Workflow
+
+Workflow AI is developed with a human-coordinated, multi-agent workflow. Agents may contribute different types of work, but changes are isolated from the main branch until they are reviewed and approved.
+
+```text
+Human Coordinator
+       │
+       ├── Planning & Specification
+       │          ↓
+       │     Agent Review
+       │
+       └── Implementation
+                  ↓
+             Agent Changes
+                  ↓
+               Review
+                  ↓
+        Approved → master
+        Rejected → revise
+```
+
+The repository treats agent output as a proposal rather than an automatic change to the main codebase. Each implementation should be traceable to a defined task, reviewed against its requirements, and kept separate until the coordinator approves its integration.
+
+This workflow is intended to improve traceability, reduce unreviewed AI-generated changes, and keep implementation decisions explicit.
 
 ## Current MVP (v0.1)
 

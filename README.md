@@ -129,9 +129,7 @@ One direction being considered is **AI Judges** — one model evaluating another
 
 Comparison is meant to lead somewhere — the long-term flow connects a Battle to an actual codebase:
 
-```text
-Battle → Evaluate → Select Artifact → Main Artifact → GitHub Repository → Development
-```
+<img width="2280" height="448" alt="Gemini_Generated_Image_o2afw4o2afw4o2af" src="https://github.com/user-attachments/assets/b6883649-b215-4ced-b132-55e3e1e58d4f" />
 
 Artifacts that aren't selected don't disappear — they're preserved as **Experiments**, so an alternative approach can be revisited later instead of being discarded the moment one artifact is chosen.
 

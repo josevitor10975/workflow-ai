@@ -15,7 +15,7 @@ This is not a finished platform — it's a concept being built and validated one
 
 ## Table of Contents
 
-- [What is Workflow AI?](#what-is-workflowai)
+- [What is Workflow AI?](#what-is-workflow-ai)
 - [The Problem](#the-problem)
 - [How It Works](#how-it-works)
 - [Core Concepts](#core-concepts)
@@ -23,6 +23,7 @@ This is not a finished platform — it's a concept being built and validated one
 - [Artifacts](#artifacts)
 - [Evaluation & Ranking](#evaluation--ranking)
 - [From Battle to Development](#from-battle-to-development)
+- [How This Project Is Developed](#how-this-project-is-developed)
 - [Current MVP (v0.1)](#current-mvp-v01)
 - [Architecture](#architecture)
 - [Roadmap](#roadmap)
@@ -58,18 +59,18 @@ A user creates a **Workspace**, configures the AI providers they want to use, an
 
 ## Core Concepts
 
-| Concept           | Description                                                                                                                                                   |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **User**          | Creates workspaces, configures providers, runs Battles, evaluates and selects artifacts.                                                                      |
-| **Provider**      | An AI service (OpenAI, Anthropic, Google, xAI) configured at the account level. Credentials are not duplicated across workspaces.                             |
-| **Model**         | A specific model exposed by a Provider (e.g. GPT, Claude, Gemini). The Battle UI focuses on Models while showing the associated Provider.                     |
-| **Workspace**     | A project/development environment. In `v0.1`, each Workspace contains one Battle — the architecture is meant to support multiple Battles per Workspace later. |
-| **Battle**        | A controlled experiment: multiple models receive the same task under the same conditions, each producing an independent artifact.                             |
-| **Artifact**      | The result produced by a model — code, files, UI, documentation, text, configuration, or project structure.                                                   |
-| **Evaluation**    | Scores an artifact (0–10) against configurable criteria.                                                                                                      |
-| **Ranking**       | Orders artifacts by evaluation score **within a given Battle** — not a universal AI ranking.                                                                  |
-| **Main Artifact** | The artifact selected as the Workspace's primary result. The top-scoring artifact is recommended, but the user can override it.                               |
-| **Experiment**    | Non-selected artifacts, preserved so alternative approaches aren't lost.                                                                                      |
+| Concept | Description |
+| --- | --- |
+| **User** | Creates workspaces, configures providers, runs Battles, evaluates and selects artifacts. |
+| **Provider** | An AI service (OpenAI, Anthropic, Google, xAI) configured at the account level. Credentials are not duplicated across workspaces. |
+| **Model** | A specific model exposed by a Provider (e.g. GPT, Claude, Gemini). The Battle UI focuses on Models while showing the associated Provider. |
+| **Workspace** | A project/development environment. In `v0.1`, each Workspace contains one Battle — the architecture is meant to support multiple Battles per Workspace later. |
+| **Battle** | A controlled experiment: multiple models receive the same task under the same conditions, each producing an independent artifact. |
+| **Artifact** | The result produced by a model — code, files, UI, documentation, text, configuration, or project structure. |
+| **Evaluation** | Scores an artifact (0–10) against configurable criteria. |
+| **Ranking** | Orders artifacts by evaluation score **within a given Battle** — not a universal AI ranking. |
+| **Main Artifact** | The artifact selected as the Workspace's primary result. The top-scoring artifact is recommended, but the user can override it. |
+| **Experiment** | Non-selected artifacts, preserved so alternative approaches aren't lost. |
 
 <img width="2280" height="448" alt="Gemini_Generated_Image_b5p67ub5p67ub5p6" src="https://github.com/user-attachments/assets/a73bc344-a0bf-4186-b1dc-02a1756eec16" />
 
@@ -133,13 +134,149 @@ Artifacts that aren't selected don't disappear — they're preserved as **Experi
 A direction under consideration for representing this in Git is isolating each model's approach on its own branch:
 
 ```text
-main
+master
 ├── agent/claude
 ├── agent/gemini
 └── agent/gpt
 ```
 
 This is a way to represent AI experiments in version control — Git branches are a representation of that process, not the primary domain model of the application. The Battle/Artifact/Evaluation structure described above is what Workflow AI is actually built around.
+
+## How This Project Is Developed
+
+Workflow AI is developed using a **human + AI agent workflow**. The goal is not to replace human engineering judgment with AI, but to use specialized AI agents to accelerate different parts of the development process while keeping architectural decisions, quality control, and final integration under human responsibility.
+
+### Roles
+
+| Role | Responsibility |
+| --- | --- |
+| **Human — José Vitor** | Project owner and final decision-maker. Defines goals, validates requirements, reviews proposed changes, approves or rejects implementations, and controls what reaches `master`. |
+| **ChatGPT** | Planning, architecture, technical specifications, documentation, task decomposition, acceptance criteria, test strategy, code review, risk analysis, and technical validation. |
+| **Gemini** | Primary implementation agent. Turns approved specifications into code, modifies the necessary files, implements features, fixes identified issues, and prepares commits for review. |
+| **GitHub** | Source of truth for version control, branches, commits, pull requests, history, and integration. |
+
+### Development Cycle
+
+Each feature or significant change should follow a controlled cycle:
+
+```text
+┌──────────────────────┐
+│ 1. Human defines task│
+└──────────┬───────────┘
+           ↓
+┌────────────────────────────┐
+│ 2. ChatGPT analyzes task   │
+│    architecture + risks    │
+│    requirements + tests    │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│ 3. ChatGPT produces        │
+│    implementation spec     │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│ 4. Gemini implements       │
+│    on an isolated branch   │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│ 5. Gemini commits changes  │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│ 6. ChatGPT reviews         │
+│    code + requirements     │
+│    tests + security       │
+└────────────┬───────────────┘
+             ↓
+       ┌─────┴─────┐
+       ↓           ↓
+   Approved     Changes
+       ↓           ↓
+    Human       Gemini
+    review      revises
+       ↓           │
+       └─────←─────┘
+             ↓
+┌────────────────────────────┐
+│ 7. Human gives final       │
+│    approval                │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│ 8. Merge into master       │
+└────────────────────────────┘
+```
+
+### Branch Policy
+
+The default integration branch is `master`.
+
+Agent implementation work is performed on an isolated working branch, currently `branch-for-agents`, unless a task explicitly requires another branch strategy.
+
+The main branch must not receive unreviewed AI-generated changes. A change should reach `master` only after:
+
+1. the requirement is clearly defined;
+2. the implementation has been completed;
+3. the implementation has been technically reviewed;
+4. identified issues have been resolved;
+5. the human coordinator has approved the change.
+
+### Division of Work
+
+The project intentionally separates **planning/review** from **implementation**:
+
+```text
+                 HUMAN
+                   │
+          Goals / Decisions
+                   │
+                   ▼
+               CHATGPT
+       Planning / Architecture
+       Specification / Documentation
+       Review / Tests / Risk Analysis
+                   │
+          Implementation Spec
+                   │
+                   ▼
+                GEMINI
+        Coding / Refactoring
+        Bug Fixes / Implementation
+                   │
+                 Code
+                   │
+                   ▼
+               CHATGPT
+          Technical Review
+                   │
+                   ▼
+                 HUMAN
+          Final Approval / Merge
+                   │
+                   ▼
+                master
+```
+
+This separation reduces duplicated work and makes responsibilities explicit. ChatGPT should not unnecessarily reimplement a feature that Gemini is responsible for coding, while Gemini should not be treated as the final authority for architecture or integration decisions.
+
+### Engineering Principles
+
+The AI-assisted process follows the same engineering principles expected from a conventional software development workflow:
+
+- Understand the problem before implementing.
+- Prefer simple and maintainable solutions.
+- Avoid unnecessary abstractions and complexity.
+- Preserve existing behavior unless a change is intentional.
+- Review for bugs, logic errors, coupling, duplication, security issues, and performance problems.
+- Define acceptance criteria before considering a task complete.
+- Test important behavior rather than relying only on visual or superficial validation.
+- Keep changes isolated and traceable through Git.
+- Never treat AI-generated code as automatically correct.
+- Human approval is required before integration into `master`.
+
+This section describes the **development process of the repository**, not a runtime workflow or feature of the Workflow AI application itself.
 
 ## Current MVP (v0.1)
 
@@ -282,11 +419,11 @@ Battle → Evaluate → Select Artifact → Main Artifact → GitHub Repository 
 <details>
 <summary><strong>Metrics</strong></summary>
 
-| Category                  | Fields                                          |
-| ------------------------- | ----------------------------------------------- |
-| **Tokens**                | Input, Output, Total                            |
-| **Cost**                  | Calculated per Provider/Model pricing           |
-| **Latency**               | Start time, End time, Execution duration        |
+| Category | Fields |
+| --- | --- |
+| **Tokens** | Input, Output, Total |
+| **Cost** | Calculated per Provider/Model pricing |
+| **Latency** | Start time, End time, Execution duration |
 | **Tool Calls** _(future)_ | Number and type of tools invoked by an AI agent |
 
 Token count is not treated as equivalent to cost — cost depends on the specific provider and model pricing, along with factors like caching, and must be calculated accordingly rather than derived from token count alone.
@@ -351,8 +488,8 @@ Frontend → Provider connection request → Backend
 
 ```text
 API response:        ≤ 2s
-AI execution:         provider-dependent
-Battle evaluation:    provider-dependent
+AI execution:        provider-dependent
+Battle evaluation:   provider-dependent
 ```
 
 **Reliability** — isolate failed model executions, preserve completed artifacts, report provider errors, allow execution status recovery. A single model failure must not invalidate the whole Battle.

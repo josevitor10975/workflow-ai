@@ -141,31 +141,6 @@ master
 
 This is a way to represent AI experiments in version control — Git branches are a representation of that process, not the primary domain model of the application. The Battle/Artifact/Evaluation structure described above is what Workflow AI is actually built around.
 
-## Development Workflow
-
-Workflow AI is developed with a human-coordinated, multi-agent workflow. Agents may contribute different types of work, but changes are isolated from the main branch until they are reviewed and approved.
-
-```text
-Human Coordinator
-       │
-       ├── Planning & Specification
-       │          ↓
-       │     Agent Review
-       │
-       └── Implementation
-                  ↓
-             Agent Changes
-                  ↓
-               Review
-                  ↓
-        Approved → master
-        Rejected → revise
-```
-
-The repository treats agent output as a proposal rather than an automatic change to the main codebase. Each implementation should be traceable to a defined task, reviewed against its requirements, and kept separate until the coordinator approves its integration.
-
-This workflow is intended to improve traceability, reduce unreviewed AI-generated changes, and keep implementation decisions explicit.
-
 ## Current MVP (v0.1)
 
 The current stage focuses on validating the core loop end to end, not on the full long-term vision. What's in scope for `v0.1`:

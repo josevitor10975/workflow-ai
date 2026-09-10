@@ -55,16 +55,7 @@ Workspace → Battle → Same Task → Multiple AI Models
 
 The core loop the MVP is built around:
 
-```text
-Define a task
-   → Select models
-   → Run the same task
-   → Compare results
-   → Evaluate
-   → Choose
-   → Develop
-   → Repeat
-```
+<img width="1917" height="544" alt="Gemini_Generated_Image_cuxhobcuxhobcuxh" src="https://github.com/user-attachments/assets/6544d890-86e6-46b6-a2a3-a40a5fa9bde4" />
 
 A user creates a **Workspace**, configures the AI providers they want to use, and starts a **Battle** — the same task briefing sent to several models at once. Each model produces its own independent **Artifact**. The user compares the artifacts, scores them against a set of criteria, and picks the one to move forward with.
 

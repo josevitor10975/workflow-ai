@@ -1,4 +1,4 @@
-# Workflow.ai
+# Workflow AI
 
 > Compare AI models. Evaluate what they build. Continue with what works.
 
@@ -7,7 +7,7 @@
 [![Stage](https://img.shields.io/badge/stage-MVP-orange)]()
 [![License](https://img.shields.io/badge/license-TBD-lightgrey)]()
 
-Workflow.ai is a product in early development. It explores a structured way to run the same task across multiple AI models, compare what they actually produce, evaluate the results, and carry the one that works forward into a development workflow.
+Workflow AI is a product in early development. It explores a structured way to run the same task across multiple AI models, compare what they actually produce, evaluate the results, and carry the one that works forward into a development workflow.
 
 This is not a finished platform — it's a concept being built and validated one core loop at a time, currently at `v0.1` / MVP.
 
@@ -15,7 +15,7 @@ This is not a finished platform — it's a concept being built and validated one
 
 ## Table of Contents
 
-- [What is Workflow.ai?](#what-is-workflowai)
+- [What is Workflow AI?](#what-is-workflowai)
 - [The Problem](#the-problem)
 - [How It Works](#how-it-works)
 - [Core Concepts](#core-concepts)
@@ -31,11 +31,11 @@ This is not a finished platform — it's a concept being built and validated one
 
 ---
 
-## What is Workflow.ai?
+## What is Workflow AI?
 
 AI models can produce meaningfully different results on the same task. Right now, comparing them means manually switching providers, repeating the same prompt, inspecting each response, and deciding by hand which one is worth keeping.
 
-Workflow.ai is an attempt to turn that manual process into a structured workflow: define a task once, run it across several models under the same conditions, compare what each one actually built, and choose which result to continue developing.
+Workflow AI is an attempt to turn that manual process into a structured workflow: define a task once, run it across several models under the same conditions, compare what each one actually built, and choose which result to continue developing.
 
 ## The Problem
 
@@ -44,7 +44,7 @@ Choose AI → Write prompt → Run task → Inspect result → Switch AI
    → Repeat task → Compare results manually → Choose a result → Continue development
 ```
 
-This works for a single quick comparison, but it doesn't scale — repeating it across models and tasks is tedious, undocumented, and easy to do inconsistently. Workflow.ai proposes a structured pipeline instead:
+This works for a single quick comparison, but it doesn't scale — repeating it across models and tasks is tedious, undocumented, and easy to do inconsistently. Workflow AI proposes a structured pipeline instead:
 
 ```text
 Workspace → Battle → Same Task → Multiple AI Models
@@ -70,18 +70,18 @@ A user creates a **Workspace**, configures the AI providers they want to use, an
 
 ## Core Concepts
 
-| Concept | Description |
-|---|---|
-| **User** | Creates workspaces, configures providers, runs Battles, evaluates and selects artifacts. |
-| **Provider** | An AI service (OpenAI, Anthropic, Google, xAI) configured at the account level. Credentials are not duplicated across workspaces. |
-| **Model** | A specific model exposed by a Provider (e.g. GPT, Claude, Gemini). The Battle UI focuses on Models while showing the associated Provider. |
-| **Workspace** | A project/development environment. In `v0.1`, each Workspace contains one Battle — the architecture is meant to support multiple Battles per Workspace later. |
-| **Battle** | A controlled experiment: multiple models receive the same task under the same conditions, each producing an independent artifact. |
-| **Artifact** | The result produced by a model — code, files, UI, documentation, text, configuration, or project structure. |
-| **Evaluation** | Scores an artifact (0–10) against configurable criteria. |
-| **Ranking** | Orders artifacts by evaluation score **within a given Battle** — not a universal AI ranking. |
-| **Main Artifact** | The artifact selected as the Workspace's primary result. The top-scoring artifact is recommended, but the user can override it. |
-| **Experiment** | Non-selected artifacts, preserved so alternative approaches aren't lost. |
+| Concept           | Description                                                                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **User**          | Creates workspaces, configures providers, runs Battles, evaluates and selects artifacts.                                                                      |
+| **Provider**      | An AI service (OpenAI, Anthropic, Google, xAI) configured at the account level. Credentials are not duplicated across workspaces.                             |
+| **Model**         | A specific model exposed by a Provider (e.g. GPT, Claude, Gemini). The Battle UI focuses on Models while showing the associated Provider.                     |
+| **Workspace**     | A project/development environment. In `v0.1`, each Workspace contains one Battle — the architecture is meant to support multiple Battles per Workspace later. |
+| **Battle**        | A controlled experiment: multiple models receive the same task under the same conditions, each producing an independent artifact.                             |
+| **Artifact**      | The result produced by a model — code, files, UI, documentation, text, configuration, or project structure.                                                   |
+| **Evaluation**    | Scores an artifact (0–10) against configurable criteria.                                                                                                      |
+| **Ranking**       | Orders artifacts by evaluation score **within a given Battle** — not a universal AI ranking.                                                                  |
+| **Main Artifact** | The artifact selected as the Workspace's primary result. The top-scoring artifact is recommended, but the user can override it.                               |
+| **Experiment**    | Non-selected artifacts, preserved so alternative approaches aren't lost.                                                                                      |
 
 ```text
 User
@@ -94,7 +94,7 @@ User
 
 ## What Makes This Different
 
-Workflow.ai isn't trying to answer:
+Workflow AI isn't trying to answer:
 
 > "Which AI is the best?"
 
@@ -116,7 +116,7 @@ An Artifact is what a model actually produced during a Battle — not just its t
 - a project structure
 - other generated output
 
-Workflow.ai is built around comparing artifacts directly — viewing the generated result, side by side across models, rather than reading through each model's written explanation of what it did.
+Workflow AI is built around comparing artifacts directly — viewing the generated result, side by side across models, rather than reading through each model's written explanation of what it did.
 
 ## Evaluation & Ranking
 
@@ -131,7 +131,7 @@ Performance
 Requirements
 ```
 
-Workflow.ai then produces a **Ranking** — an ordering of artifacts by score, scoped to that Battle. The highest-scoring artifact can be presented as a recommendation, but selecting a different one is always available to the user.
+Workflow AI then produces a **Ranking** — an ordering of artifacts by score, scoped to that Battle. The highest-scoring artifact can be presented as a recommendation, but selecting a different one is always available to the user.
 
 Later stages may combine manual scoring with other signals:
 
@@ -160,7 +160,7 @@ main
 └── agent/gpt
 ```
 
-This is a way to represent AI experiments in version control — Git branches are a representation of that process, not the primary domain model of the application. The Battle/Artifact/Evaluation structure described above is what Workflow.ai is actually built around.
+This is a way to represent AI experiments in version control — Git branches are a representation of that process, not the primary domain model of the application. The Battle/Artifact/Evaluation structure described above is what Workflow AI is actually built around.
 
 ## Current MVP (v0.1)
 
@@ -250,7 +250,7 @@ Gemini   · Google    · Not connected [Connect]
 
 This is a direction, not a commitment — later stages depend on what the MVP validates.
 
-**v0.1 — Core MVP** *(current)*
+**v0.1 — Core MVP** _(current)_
 Authentication, provider connections, Workspace/Battle creation, model selection, same-task execution, Battle Room, artifact visualization, manual evaluation, ranking, artifact selection, Main Artifact, experiment preservation, initial GitHub integration.
 
 **v0.2 — Evaluation**
@@ -266,7 +266,7 @@ Team Workspaces, roles and permissions, shared Battles, organization management,
 
 ## Product Specification
 
-The sections below document the current technical specification in more detail. This is implementation-level detail for `v0.1` — the product narrative above is what Workflow.ai is meant to be; this section is how it's currently built.
+The sections below document the current technical specification in more detail. This is implementation-level detail for `v0.1` — the product narrative above is what Workflow AI is meant to be; this section is how it's currently built.
 
 <details>
 <summary><strong>Functional Requirements</strong></summary>
@@ -315,6 +315,7 @@ Artifacts remain accessible after a Battle ends — losing results are never aut
 The selected artifact can become the Workspace's Main Artifact, representing the result chosen for continued development.
 
 **RF15 — Experiments**
+
 ```text
 Workspace
 ├── Main
@@ -326,6 +327,7 @@ Workspace
 
 **RF16 — GitHub Integration**
 Connect GitHub, select a repository/branch, export an artifact, and continue development from it:
+
 ```text
 Battle → Evaluate → Select Artifact → Main Artifact → GitHub Repository → Development
 ```
@@ -335,12 +337,12 @@ Battle → Evaluate → Select Artifact → Main Artifact → GitHub Repository 
 <details>
 <summary><strong>Metrics</strong></summary>
 
-| Category | Fields |
-|---|---|
-| **Tokens** | Input, Output, Total |
-| **Cost** | Calculated per Provider/Model pricing |
-| **Latency** | Start time, End time, Execution duration |
-| **Tool Calls** *(future)* | Number and type of tools invoked by an AI agent |
+| Category                  | Fields                                          |
+| ------------------------- | ----------------------------------------------- |
+| **Tokens**                | Input, Output, Total                            |
+| **Cost**                  | Calculated per Provider/Model pricing           |
+| **Latency**               | Start time, End time, Execution duration        |
+| **Tool Calls** _(future)_ | Number and type of tools invoked by an AI agent |
 
 Token count is not treated as equivalent to cost — cost depends on the specific provider and model pricing, along with factors like caching, and must be calculated accordingly rather than derived from token count alone.
 
@@ -401,6 +403,7 @@ Frontend → Provider connection request → Backend
 <summary><strong>Non-Functional Requirements</strong></summary>
 
 **Performance**
+
 ```text
 API response:        ≤ 2s
 AI execution:         provider-dependent
@@ -410,6 +413,7 @@ Battle evaluation:    provider-dependent
 **Reliability** — isolate failed model executions, preserve completed artifacts, report provider errors, allow execution status recovery. A single model failure must not invalidate the whole Battle.
 
 **Scalability** — asynchronous execution queue:
+
 ```text
 Battle → Execution Queue → [Model A, Model B, Model C, Model D]
 ```
@@ -444,7 +448,7 @@ workflow-ai/
 <details>
 <summary><strong>Success Criteria — v0.1</strong></summary>
 
-The MVP is functional when a user can complete this scenario without leaving Workflow.ai:
+The MVP is functional when a user can complete this scenario without leaving Workflow AI:
 
 1. Create an account
 2. Connect at least one AI Provider
@@ -471,4 +475,4 @@ License to be defined.
 
 ---
 
-**Status:** Workflow.ai v0.1 — early-stage MVP, in development.
+**Status:** Workflow AI v0.1 — early-stage MVP, in development.

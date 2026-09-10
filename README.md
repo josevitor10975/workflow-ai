@@ -204,11 +204,7 @@ The current stage focuses on validating the core loop end to end, not on the ful
 
 At Battle creation, the user selects **Models** — the associated Provider is shown alongside each one. If a required provider isn't connected yet, the user can connect it from that screen without leaving the Battle creation flow or pasting an API key directly into the Battle form:
 
-```text
-GPT      · OpenAI    · Connected
-Claude   · Anthropic · Connected
-Gemini   · Google    · Not connected [Connect]
-```
+<img width="2729" height="368" alt="Gemini_Generated_Image_68vk1k68vk1k68vk" src="https://github.com/user-attachments/assets/1036682c-2116-4bbb-ac7c-e54a684d20d4" />
 
 ## Roadmap
 

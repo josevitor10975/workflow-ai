@@ -192,29 +192,7 @@ The current stage focuses on validating the core loop end to end, not on the ful
 
 ## Architecture
 
-```text
-┌─────────────────────────────┐
-│           Client            │
-│      React / TypeScript     │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│            API              │
-│       NestJS / Node.js      │
-└──────────────┬──────────────┘
-               │
-       ┌───────┴────────┐
-       ▼                ▼
-┌─────────────┐  ┌─────────────┐
-│ PostgreSQL  │  │ AI Providers│
-│   Prisma    │  │    APIs     │
-└─────────────┘  └─────────────┘
-                       │
-             ┌─────────┼─────────┐
-             ▼         ▼         ▼
-           OpenAI  Anthropic   Google
-```
+<img width="1024" height="565" alt="Architecture" src="https://github.com/user-attachments/assets/e839d78a-7a22-446d-8284-b60d1a735449" />
 
 **Frontend:** React · Next.js · TypeScript · Tailwind CSS · shadcn/ui
 **Backend:** Node.js · NestJS · TypeScript

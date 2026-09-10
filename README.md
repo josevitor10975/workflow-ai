@@ -74,14 +74,7 @@ A user creates a **Workspace**, configures the AI providers they want to use, an
 | **Main Artifact** | The artifact selected as the Workspace's primary result. The top-scoring artifact is recommended, but the user can override it.                               |
 | **Experiment**    | Non-selected artifacts, preserved so alternative approaches aren't lost.                                                                                      |
 
-```text
-User
- └── Workspace
-      └── Battle
-           ├── Artifact
-           ├── Artifact
-           └── Artifact
-```
+<img width="2280" height="448" alt="Gemini_Generated_Image_b5p67ub5p67ub5p6" src="https://github.com/user-attachments/assets/a73bc344-a0bf-4186-b1dc-02a1756eec16" />
 
 ## What Makes This Different
 

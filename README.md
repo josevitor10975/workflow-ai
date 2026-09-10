@@ -39,10 +39,7 @@ Workflow AI is an attempt to turn that manual process into a structured workflow
 
 ## The Problem
 
-```text
-Choose AI → Write prompt → Run task → Inspect result → Switch AI
-   → Repeat task → Compare results manually → Choose a result → Continue development
-```
+<img width="2280" height="448" alt="Gemini_Generated_Image_1c0on01c0on01c0o" src="https://github.com/user-attachments/assets/ae545d66-111b-4f2b-82db-5e45fd3c9016" />
 
 This works for a single quick comparison, but it doesn't scale — repeating it across models and tasks is tedious, undocumented, and easy to do inconsistently. Workflow AI proposes a structured pipeline instead:
 

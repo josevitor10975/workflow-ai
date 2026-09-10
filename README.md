@@ -23,7 +23,7 @@ This is not a finished platform — it's a concept being built and validated one
 - [Artifacts](#artifacts)
 - [Evaluation & Ranking](#evaluation--ranking)
 - [From Battle to Development](#from-battle-to-development)
-- [How This Project Is Developed](#how-this-project-is-developed)
+- [Specification-Driven Agentic Development with Human-in-the-Loop](#specification-driven-agentic-development-with-human-in-the-loop)
 - [Current MVP (v0.1)](#current-mvp-v01)
 - [Architecture](#architecture)
 - [Roadmap](#roadmap)
@@ -142,9 +142,38 @@ master
 
 This is a way to represent AI experiments in version control — Git branches are a representation of that process, not the primary domain model of the application. The Battle/Artifact/Evaluation structure described above is what Workflow AI is actually built around.
 
-## How This Project Is Developed
+## Specification-Driven Agentic Development with Human-in-the-Loop
 
-Workflow AI is developed using a **human + AI agent workflow**. The goal is not to replace human engineering judgment with AI, but to use specialized AI agents to accelerate different parts of the development process while keeping architectural decisions, quality control, and final integration under human responsibility.
+Workflow AI is also being developed using a **Specification-Driven Agentic Development with Human-in-the-Loop** methodology.
+
+The development process treats AI agents as specialized engineering participants rather than autonomous decision-makers. Work is first analyzed and specified, then implemented by an agent, technically reviewed, corrected when necessary, and only integrated after human approval.
+
+The methodology is built around three principles:
+
+1. **Specification-driven** — implementation starts from a clear technical specification that defines the problem, expected behavior, requirements, constraints, architecture, acceptance criteria, and tests.
+2. **Agentic** — AI agents are assigned specialized responsibilities within the development process instead of treating one model as responsible for everything.
+3. **Human-in-the-loop** — architectural decisions, quality control, and final integration remain under human responsibility. AI output is never considered automatically correct.
+
+### Development Structure
+
+The repository keeps the process traceable through documentation and Git:
+
+```text
+docs/
+├── requirements/
+│   ├── 001-feature-x.md
+│   ├── 002-feature-y.md
+│   └── 003-feature-z.md
+│
+├── reviews/
+│   ├── 001-feature-x-review.md
+│   └── 002-feature-y-review.md
+│
+└── architecture/
+    └── ...
+```
+
+A requirement/specification describes what should be built and how it should behave. A review records what was actually delivered, what was missed, which issues were found, and whether the implementation is ready for human approval.
 
 ### Roles
 
@@ -155,39 +184,68 @@ Workflow AI is developed using a **human + AI agent workflow**. The goal is not 
 | **Gemini** | Primary implementation agent. Turns approved specifications into code, modifies the necessary files, implements features, fixes identified issues, and prepares commits for review. |
 | **GitHub** | Source of truth for version control, branches, commits, pull requests, history, and integration. |
 
-### Development Cycle
+### Feature Development Cycle
 
-Each feature or significant change should follow a controlled cycle:
+Each feature or significant change follows a controlled cycle. Features are developed incrementally, one cycle at a time:
 
 ```text
-┌──────────────────────┐
-│ 1. Human defines task│
-└──────────┬───────────┘
-           ↓
+Feature #001
+    ↓
+Analysis
+    ↓
+Specification
+    ↓
+Gemini
+    ↓
+Implementation
+    ↓
+Technical Review
+    ↓
+Corrections ──────────┐
+    ↑                 │
+    └─────────────────┘
+    ↓
+Human Approval
+    ↓
+master
+    ↓
+Feature #002
+    ↓
+...
+```
+
+In practice, the cycle is:
+
+```text
 ┌────────────────────────────┐
-│ 2. ChatGPT analyzes task   │
-│    architecture + risks    │
-│    requirements + tests    │
+│ 1. Human defines the task  │
 └────────────┬───────────────┘
              ↓
 ┌────────────────────────────┐
-│ 3. ChatGPT produces        │
+│ 2. ChatGPT analyzes        │
+│    requirements, impact,   │
+│    architecture and risks  │
+└────────────┬───────────────┘
+             ↓
+┌────────────────────────────┐
+│ 3. ChatGPT produces the    │
 │    implementation spec     │
 └────────────┬───────────────┘
              ↓
 ┌────────────────────────────┐
 │ 4. Gemini implements       │
-│    on an isolated branch   │
+│    the specification       │
 └────────────┬───────────────┘
              ↓
 ┌────────────────────────────┐
-│ 5. Gemini commits changes  │
+│ 5. Implementation is       │
+│    committed for review    │
 └────────────┬───────────────┘
              ↓
 ┌────────────────────────────┐
-│ 6. ChatGPT reviews         │
-│    code + requirements     │
-│    tests + security       │
+│ 6. ChatGPT reviews code,   │
+│    requirements, tests,    │
+│    security and architecture│
 └────────────┬───────────────┘
              ↓
        ┌─────┴─────┐
@@ -276,7 +334,7 @@ The AI-assisted process follows the same engineering principles expected from a 
 - Never treat AI-generated code as automatically correct.
 - Human approval is required before integration into `master`.
 
-This section describes the **development process of the repository**, not a runtime workflow or feature of the Workflow AI application itself.
+This section describes the **development methodology used to build the repository**, not a runtime workflow or feature of the Workflow AI application itself.
 
 ## Current MVP (v0.1)
 

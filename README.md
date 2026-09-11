@@ -188,31 +188,7 @@ A requirement/specification describes what should be built and how it should beh
 
 Each feature or significant change follows a controlled cycle. Features are developed incrementally, one cycle at a time:
 
-```text
-Feature #001
-    ↓
-Analysis
-    ↓
-Specification
-    ↓
-Gemini
-    ↓
-Implementation
-    ↓
-Technical Review
-    ↓
-Corrections ──────────┐
-    ↑                 │
-    └─────────────────┘
-    ↓
-Human Approval
-    ↓
-master
-    ↓
-Feature #002
-    ↓
-...
-```
+<img width="1024" height="1536" alt="ChatGPT Image 11 de set  de 2026, 10_45_39" src="https://github.com/user-attachments/assets/f53dda28-20fa-4fa3-a429-6a99eb3a9bc3" />
 
 In practice, the cycle is:
 

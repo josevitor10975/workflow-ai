@@ -212,37 +212,7 @@ The main branch must not receive unreviewed AI-generated changes. A change shoul
 
 The project intentionally separates **planning/review** from **implementation**:
 
-```text
-                 HUMAN
-                   │
-          Goals / Decisions
-                   │
-                   ▼
-               CHATGPT
-       Planning / Architecture
-       Specification / Documentation
-       Review / Tests / Risk Analysis
-                   │
-          Implementation Spec
-                   │
-                   ▼
-                GEMINI
-        Coding / Refactoring
-        Bug Fixes / Implementation
-                   │
-                 Code
-                   │
-                   ▼
-               CHATGPT
-          Technical Review
-                   │
-                   ▼
-                 HUMAN
-          Final Approval / Merge
-                   │
-                   ▼
-                master
-```
+<img width="1024" height="1536" alt="ChatGPT Image 11 de set  de 2026, 10_51_44" src="https://github.com/user-attachments/assets/7e08cdc9-4466-4bdd-a111-57f22b6fcdb0" />
 
 This separation reduces duplicated work and makes responsibilities explicit. ChatGPT should not unnecessarily reimplement a feature that Gemini is responsible for coding, while Gemini should not be treated as the final authority for architecture or integration decisions.
 

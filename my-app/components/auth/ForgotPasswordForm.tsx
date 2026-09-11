@@ -6,14 +6,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+// Temporary mock until the authentication backend is implemented.
+const MOCK_EXISTING_EMAILS = ["demo@workflow.ai"];
+
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Reset link requested for:", email);
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const emailExists = MOCK_EXISTING_EMAILS.includes(normalizedEmail);
+
+    if (!emailExists) {
+      setError("We couldn’t find an account with that email address.");
+      setSubmitted(false);
+      return;
+    }
+
+    setError("");
+    setEmail(normalizedEmail);
     setSubmitted(true);
+  };
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
+    if (error) setError("");
   };
 
   return (
@@ -42,8 +62,10 @@ export function ForgotPasswordForm() {
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3 7 9 6 9-6" />
             </svg>
           </div>
           <div className="space-y-1 mb-6">
@@ -58,6 +80,7 @@ export function ForgotPasswordForm() {
           <p className="text-sm text-muted-foreground">
             Didn&apos;t receive it? Check your spam folder or{" "}
             <button
+              type="button"
               onClick={() => setSubmitted(false)}
               className="font-medium text-foreground hover:underline transition-all"
             >
@@ -78,6 +101,7 @@ export function ForgotPasswordForm() {
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                aria-hidden="true"
               >
                 <path d="m12 19-7-7 7-7" />
                 <path d="M19 12H5" />
@@ -111,10 +135,25 @@ export function ForgotPasswordForm() {
                 type="email"
                 placeholder="name@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => handleEmailChange(e.target.value)}
                 required
-                className="h-11 rounded-md border-input bg-background px-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0"
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? "email-error" : undefined}
+                className={`h-11 rounded-md bg-background px-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 ${
+                  error
+                    ? "border-destructive focus-visible:ring-destructive"
+                    : "border-input"
+                }`}
               />
+              {error && (
+                <p
+                  id="email-error"
+                  role="alert"
+                  className="text-sm text-destructive pt-1"
+                >
+                  {error}
+                </p>
+              )}
             </div>
 
             <Button

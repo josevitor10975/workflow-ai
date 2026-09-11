@@ -1,3 +1,4 @@
+import { AuthParticles } from "@/components/auth/AuthParticles";
 import { AuthRightPanel } from "@/components/auth/AuthRightPanel";
 
 export default function AuthLayout({
@@ -8,12 +9,17 @@ export default function AuthLayout({
   return (
     <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 font-sans antialiased p-2 sm:p-3 lg:p-4 bg-background">
       {/* Coluna Esquerda — form específico de cada rota */}
-      <div className="bg-background text-foreground flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 order-1">
-        {children}
+      <div className="relative isolate overflow-hidden bg-background text-foreground flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 order-1">
+        <AuthParticles />
+        <div className="relative z-10 w-full flex justify-center">
+          {children}
+        </div>
       </div>
 
       {/* Coluna Direita — painel compartilhado */}
-      <AuthRightPanel />
+      <div className="order-2 min-h-full">
+        <AuthRightPanel />
+      </div>
     </div>
   );
 }

@@ -188,84 +188,11 @@ A requirement/specification describes what should be built and how it should beh
 
 Each feature or significant change follows a controlled cycle. Features are developed incrementally, one cycle at a time:
 
-```text
-Feature #001
-    ↓
-Analysis
-    ↓
-Specification
-    ↓
-Gemini
-    ↓
-Implementation
-    ↓
-Technical Review
-    ↓
-Corrections ──────────┐
-    ↑                 │
-    └─────────────────┘
-    ↓
-Human Approval
-    ↓
-master
-    ↓
-Feature #002
-    ↓
-...
-```
+<img width="1024" height="1536" alt="ChatGPT Image 11 de set  de 2026, 10_45_39" src="https://github.com/user-attachments/assets/f53dda28-20fa-4fa3-a429-6a99eb3a9bc3" />
 
 In practice, the cycle is:
 
-```text
-┌────────────────────────────┐
-│ 1. Human defines the task  │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 2. ChatGPT analyzes        │
-│    requirements, impact,   │
-│    architecture and risks  │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 3. ChatGPT produces the    │
-│    implementation spec     │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 4. Gemini implements       │
-│    the specification       │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 5. Implementation is       │
-│    committed for review    │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 6. ChatGPT reviews code,   │
-│    requirements, tests,    │
-│    security and architecture│
-└────────────┬───────────────┘
-             ↓
-       ┌─────┴─────┐
-       ↓           ↓
-   Approved     Changes
-       ↓           ↓
-    Human       Gemini
-    review      revises
-       ↓           │
-       └─────←─────┘
-             ↓
-┌────────────────────────────┐
-│ 7. Human gives final       │
-│    approval                │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 8. Merge into master       │
-└────────────────────────────┘
-```
+<img width="1024" height="1536" alt="ChatGPT Image 11 de set  de 2026, 10_49_02" src="https://github.com/user-attachments/assets/97b2f1e4-b1c5-4276-b492-bb5c5b727683" />
 
 ### Branch Policy
 
@@ -285,37 +212,7 @@ The main branch must not receive unreviewed AI-generated changes. A change shoul
 
 The project intentionally separates **planning/review** from **implementation**:
 
-```text
-                 HUMAN
-                   │
-          Goals / Decisions
-                   │
-                   ▼
-               CHATGPT
-       Planning / Architecture
-       Specification / Documentation
-       Review / Tests / Risk Analysis
-                   │
-          Implementation Spec
-                   │
-                   ▼
-                GEMINI
-        Coding / Refactoring
-        Bug Fixes / Implementation
-                   │
-                 Code
-                   │
-                   ▼
-               CHATGPT
-          Technical Review
-                   │
-                   ▼
-                 HUMAN
-          Final Approval / Merge
-                   │
-                   ▼
-                master
-```
+<img width="1024" height="1536" alt="ChatGPT Image 11 de set  de 2026, 10_51_44" src="https://github.com/user-attachments/assets/7e08cdc9-4466-4bdd-a111-57f22b6fcdb0" />
 
 This separation reduces duplicated work and makes responsibilities explicit. ChatGPT should not unnecessarily reimplement a feature that Gemini is responsible for coding, while Gemini should not be treated as the final authority for architecture or integration decisions.
 

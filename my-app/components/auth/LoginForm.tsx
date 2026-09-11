@@ -12,7 +12,6 @@ export function LoginForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign in submitted:", { email, password });
   };
 
   return (
@@ -87,7 +86,7 @@ export function LoginForm() {
 
         <Button
           type="submit"
-          className="w-full h-11 mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-base rounded-md transition-colors shadow-none"
+          className="mt-2 h-11 w-full rounded-md bg-primary text-base font-medium text-primary-foreground shadow-none transition-colors hover:bg-primary/90"
         >
           Sign in
         </Button>
@@ -108,7 +107,7 @@ export function LoginForm() {
         <Button
           type="button"
           variant="outline"
-          className="w-full h-11 bg-background hover:bg-accent text-foreground border-border font-medium text-base rounded-md transition-colors flex items-center justify-center gap-2 shadow-none"
+          className="h-11 w-full rounded-md border-border bg-background text-sm font-medium text-foreground shadow-none transition-colors hover:bg-accent"
         >
           <svg
             className="h-4 w-4 fill-current text-foreground"
@@ -126,7 +125,7 @@ export function LoginForm() {
         <Button
           type="button"
           variant="outline"
-          className="w-full h-11 bg-background hover:bg-accent text-foreground border-border font-medium text-base rounded-md transition-colors flex items-center justify-center gap-2 shadow-none"
+          className="h-11 w-full rounded-md border-border bg-background text-sm font-medium text-foreground shadow-none transition-colors hover:bg-accent"
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24">
             <path

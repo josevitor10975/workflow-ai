@@ -37,46 +37,6 @@ const steps = [
 export function AuthRightPanel() {
   return (
     <aside className="relative hidden min-h-full overflow-hidden rounded-lg bg-card text-card-foreground lg:flex lg:flex-col lg:justify-center">
-      <style jsx>{`
-        @keyframes timeline-enter {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes timeline-glow {
-          0%,
-          100% {
-            opacity: 0.35;
-            transform: scale(0.92);
-          }
-          50% {
-            opacity: 0.7;
-            transform: scale(1);
-          }
-        }
-
-        .timeline-step {
-          animation: timeline-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .timeline-glow {
-          animation: timeline-glow 3.5s ease-in-out infinite;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .timeline-step,
-          .timeline-glow {
-            animation: none;
-          }
-        }
-      `}</style>
-
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-primary/[0.07] blur-3xl"
@@ -112,7 +72,7 @@ export function AuthRightPanel() {
           />
           <div
             aria-hidden="true"
-            className="timeline-glow absolute left-[15px] top-8 h-2 w-2 rounded-full bg-primary/70 blur-[2px]"
+            className="absolute left-[14px] top-8 h-2.5 w-2.5 rounded-full bg-primary/30 blur-[2px] transition-all duration-500 hover:scale-150"
           />
 
           <div className="relative space-y-1">
@@ -123,12 +83,11 @@ export function AuthRightPanel() {
               return (
                 <div
                   key={step.number}
-                  className="timeline-step group relative flex gap-4 rounded-2xl p-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:bg-background/45 sm:gap-5 sm:p-3"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="group relative flex gap-4 rounded-2xl p-2.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-background/45 sm:gap-5 sm:p-3 motion-reduce:transition-none motion-reduce:hover:transform-none"
                 >
                   <div className="relative z-10 flex w-9 shrink-0 justify-center">
                     <div
-                      className={`relative flex h-10 w-10 items-center justify-center rounded-full border bg-card/95 shadow-sm backdrop-blur transition-all duration-300 group-hover:scale-105 group-hover:shadow-md ${
+                      className={`relative flex h-10 w-10 items-center justify-center rounded-full border bg-card/95 shadow-sm backdrop-blur transition-all duration-300 ease-out group-hover:scale-105 group-hover:shadow-md motion-reduce:transition-none ${
                         isLast
                           ? "border-primary/40 text-foreground"
                           : "border-border text-muted-foreground group-hover:border-primary/40 group-hover:text-foreground"
@@ -139,14 +98,14 @@ export function AuthRightPanel() {
                         className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/[0.12] via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                       />
                       <Icon
-                        className="relative h-4 w-4 transition-transform duration-300 group-hover:scale-110"
+                        className="relative h-4 w-4 transition-transform duration-300 ease-out group-hover:scale-110 motion-reduce:transition-none"
                         strokeWidth={1.5}
                       />
                     </div>
                   </div>
 
                   <div
-                    className={`min-w-0 flex-1 rounded-xl px-2 py-1 transition-all duration-300 group-hover:translate-x-0.5 ${
+                    className={`min-w-0 flex-1 rounded-xl px-2 py-1 transition-all duration-300 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none ${
                       isLast ? "pb-2" : "pb-5"
                     }`}
                   >
@@ -170,7 +129,7 @@ export function AuthRightPanel() {
 
         <div className="mt-8 border-t border-border/80 pt-5">
           <div className="group flex items-start gap-3 rounded-xl px-1 py-2 transition-colors duration-300 hover:bg-background/35">
-            <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground transition-all duration-300 group-hover:scale-105 group-hover:border-primary/40">
+            <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground transition-all duration-300 group-hover:scale-105 group-hover:border-primary/40 motion-reduce:transition-none">
               <Check className="h-3.5 w-3.5" strokeWidth={1.8} />
             </div>
             <div className="min-w-0">
@@ -178,7 +137,7 @@ export function AuthRightPanel() {
                 <p className="font-serif text-base font-medium text-foreground">
                   More than a benchmark
                 </p>
-                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
               </div>
               <p className="mt-1 text-sm leading-5 text-muted-foreground">
                 Compare. Evaluate. Choose. Build.

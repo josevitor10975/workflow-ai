@@ -11,29 +11,25 @@ const steps = [
   {
     number: "01",
     title: "Create a workspace",
-    description:
-      "Keep your projects, battles, results, and development context together.",
+    description: "Organize projects, battles, and results in one place.",
     icon: LayoutGrid,
   },
   {
     number: "02",
     title: "Run a battle",
-    description:
-      "Send the same briefing to multiple AI agents and compare their outputs side by side.",
+    description: "Compare multiple AI agents on the same task.",
     icon: Sparkles,
   },
   {
     number: "03",
     title: "Evaluate & choose",
-    description:
-      "Review each result against clear criteria, then select the output worth continuing with.",
+    description: "Review results and select the strongest output.",
     icon: Scale,
   },
   {
     number: "04",
     title: "Ship with GitHub",
-    description:
-      "Turn the selected result into development work with branches, commits, and a traceable workflow.",
+    description: "Turn the chosen result into traceable development work.",
     icon: GitBranch,
   },
 ];
@@ -59,9 +55,9 @@ export function AuthRightPanel() {
           <h2 className="max-w-md font-serif text-3xl font-medium leading-tight tracking-tight text-foreground xl:text-4xl">
             From idea to shipped work.
           </h2>
-          <p className="mt-3 max-w-md text-base leading-6 text-muted-foreground">
-            A focused workflow for comparing AI outputs, making informed
-            decisions, and turning the best result into real development work.
+          <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
+            Compare AI outputs, make informed decisions, and turn the best
+            result into real development work.
           </p>
         </div>
 
@@ -81,8 +77,14 @@ export function AuthRightPanel() {
                   className="group relative flex gap-4 rounded-xl py-2.5 transition-colors duration-200 hover:bg-background/60 sm:gap-5 sm:px-3"
                 >
                   <div className="relative z-10 flex w-9 shrink-0 justify-center">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition-colors duration-200 group-hover:border-foreground/30 group-hover:text-foreground">
-                      <Icon className="h-4 w-4" strokeWidth={1.7} />
+                    <div
+                      className={`flex h-9 w-9 items-center justify-center rounded-full border bg-card shadow-sm transition-colors duration-200 ${
+                        isLast
+                          ? "border-foreground/30 text-foreground"
+                          : "border-border text-muted-foreground group-hover:border-foreground/30 group-hover:text-foreground"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" strokeWidth={1.5} />
                     </div>
                   </div>
 

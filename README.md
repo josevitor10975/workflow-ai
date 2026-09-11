@@ -192,56 +192,7 @@ Each feature or significant change follows a controlled cycle. Features are deve
 
 In practice, the cycle is:
 
-```text
-┌────────────────────────────┐
-│ 1. Human defines the task  │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 2. ChatGPT analyzes        │
-│    requirements, impact,   │
-│    architecture and risks  │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 3. ChatGPT produces the    │
-│    implementation spec     │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 4. Gemini implements       │
-│    the specification       │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 5. Implementation is       │
-│    committed for review    │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 6. ChatGPT reviews code,   │
-│    requirements, tests,    │
-│    security and architecture│
-└────────────┬───────────────┘
-             ↓
-       ┌─────┴─────┐
-       ↓           ↓
-   Approved     Changes
-       ↓           ↓
-    Human       Gemini
-    review      revises
-       ↓           │
-       └─────←─────┘
-             ↓
-┌────────────────────────────┐
-│ 7. Human gives final       │
-│    approval                │
-└────────────┬───────────────┘
-             ↓
-┌────────────────────────────┐
-│ 8. Merge into master       │
-└────────────────────────────┘
-```
+<img width="1024" height="1536" alt="ChatGPT Image 11 de set  de 2026, 10_49_02" src="https://github.com/user-attachments/assets/97b2f1e4-b1c5-4276-b492-bb5c5b727683" />
 
 ### Branch Policy
 

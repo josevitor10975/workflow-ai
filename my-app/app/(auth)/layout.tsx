@@ -13,7 +13,9 @@ export default function AuthLayout({
       </div>
 
       {/* Coluna Direita — painel compartilhado */}
-      <AuthRightPanel />
+      <div className="order-2 min-h-full">
+        <AuthRightPanel />
+      </div>
     </div>
   );
 }

@@ -140,7 +140,9 @@ export function ForgotPasswordForm() {
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? "email-error" : undefined}
                 className={`h-11 rounded-md bg-background px-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 ${
-                  error ? "border-destructive focus-visible:ring-destructive" : "border-input"
+                  error
+                    ? "border-destructive focus-visible:ring-destructive"
+                    : "border-input"
                 }`}
               />
               {error && (

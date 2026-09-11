@@ -70,10 +70,6 @@ export function AuthRightPanel() {
             aria-hidden="true"
             className="absolute bottom-8 left-[19px] top-8 w-px bg-gradient-to-b from-border via-primary/35 to-border"
           />
-          <div
-            aria-hidden="true"
-            className="absolute left-[14px] top-8 h-2.5 w-2.5 rounded-full bg-primary/30 blur-[2px] transition-all duration-500 hover:scale-150"
-          />
 
           <div className="relative space-y-1">
             {steps.map((step, index) => {
@@ -83,34 +79,27 @@ export function AuthRightPanel() {
               return (
                 <div
                   key={step.number}
-                  className="group relative flex gap-4 rounded-2xl p-2.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-background/45 sm:gap-5 sm:p-3 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                  className="relative flex gap-4 rounded-2xl p-2.5 sm:gap-5 sm:p-3"
                 >
                   <div className="relative z-10 flex w-9 shrink-0 justify-center">
                     <div
-                      className={`relative flex h-10 w-10 items-center justify-center rounded-full border bg-card/95 shadow-sm backdrop-blur transition-all duration-300 ease-out group-hover:scale-105 group-hover:shadow-md motion-reduce:transition-none ${
+                      className={`relative flex h-10 w-10 items-center justify-center rounded-full border bg-card/95 shadow-sm backdrop-blur ${
                         isLast
                           ? "border-primary/40 text-foreground"
-                          : "border-border text-muted-foreground group-hover:border-primary/40 group-hover:text-foreground"
+                          : "border-border text-muted-foreground"
                       }`}
                     >
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/[0.12] via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      />
-                      <Icon
-                        className="relative h-4 w-4 transition-transform duration-300 ease-out group-hover:scale-110 motion-reduce:transition-none"
-                        strokeWidth={1.5}
-                      />
+                      <Icon className="relative h-4 w-4" strokeWidth={1.5} />
                     </div>
                   </div>
 
                   <div
-                    className={`min-w-0 flex-1 rounded-xl px-2 py-1 transition-all duration-300 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none ${
+                    className={`min-w-0 flex-1 rounded-xl px-2 py-1 ${
                       isLast ? "pb-2" : "pb-5"
                     }`}
                   >
                     <div className="flex items-baseline gap-2.5">
-                      <span className="font-mono text-[10px] font-medium tracking-widest text-muted-foreground/60 transition-colors duration-300 group-hover:text-primary/70">
+                      <span className="font-mono text-[10px] font-medium tracking-widest text-muted-foreground/60">
                         {step.number}
                       </span>
                       <h3 className="font-serif text-base font-medium text-foreground">
@@ -128,8 +117,8 @@ export function AuthRightPanel() {
         </div>
 
         <div className="mt-8 border-t border-border/80 pt-5">
-          <div className="group flex items-start gap-3 rounded-xl px-1 py-2 transition-colors duration-300 hover:bg-background/35">
-            <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground transition-all duration-300 group-hover:scale-105 group-hover:border-primary/40 motion-reduce:transition-none">
+          <div className="flex items-start gap-3 rounded-xl px-1 py-2">
+            <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground">
               <Check className="h-3.5 w-3.5" strokeWidth={1.8} />
             </div>
             <div className="min-w-0">
@@ -137,7 +126,7 @@ export function AuthRightPanel() {
                 <p className="font-serif text-base font-medium text-foreground">
                   More than a benchmark
                 </p>
-                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
+                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
               </div>
               <p className="mt-1 text-sm leading-5 text-muted-foreground">
                 Compare. Evaluate. Choose. Build.

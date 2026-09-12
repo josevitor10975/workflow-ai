@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Code2,
-  Folder,
-  Image,
-  Sparkles,
-  X,
-} from "lucide-react";
+import { Box, Code2, Folder, Image, Sparkles, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +20,10 @@ type CreateWorkspaceModalProps = {
   onClose: () => void;
 };
 
-export function CreateWorkspaceModal({ open, onClose }: CreateWorkspaceModalProps) {
+export function CreateWorkspaceModal({
+  open,
+  onClose,
+}: CreateWorkspaceModalProps) {
   const [selectedIcon, setSelectedIcon] = useState("folder");
 
   useEffect(() => {
@@ -65,11 +61,15 @@ export function CreateWorkspaceModal({ open, onClose }: CreateWorkspaceModalProp
       >
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">
-            <h2 id="create-workspace-title" className="text-2xl font-medium tracking-tight">
+            <h2
+              id="create-workspace-title"
+              className="text-2xl font-medium tracking-tight"
+            >
               Create workspace
             </h2>
-            <p className="max-w-md text-sm leading-5 text-muted-foreground">
-              Organize your projects and keep your Battles, results and development in one place.
+            <p className="max-w-md text-base leading-5 text-muted-foreground">
+              Organize your projects and keep your Battles, results and
+              development in one place.
             </p>
           </div>
 
@@ -84,14 +84,19 @@ export function CreateWorkspaceModal({ open, onClose }: CreateWorkspaceModalProp
           </Button>
         </div>
 
-        <form className="mt-7 space-y-5" onSubmit={(event) => event.preventDefault()}>
+        <form
+          className="mt-7 space-y-5"
+          onSubmit={(event) => event.preventDefault()}
+        >
           <div className="space-y-2">
             <Label htmlFor="workspace-name">Name</Label>
             <Input id="workspace-name" placeholder="e.g. SaaS Landing Page" />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="workspace-description">Description (optional)</Label>
+            <Label htmlFor="workspace-description">
+              Description (optional)
+            </Label>
             <textarea
               id="workspace-description"
               placeholder="What are you building? (optional)"

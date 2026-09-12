@@ -35,6 +35,9 @@ const secondaryNavigation = [
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 
+const menuButtonClassName =
+  "!translate-x-0 transition-[transform,background-color,color] duration-300 ease-in-out hover:scale-[1.03]";
+
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="font-serif">
@@ -61,6 +64,7 @@ export function AppSidebar() {
                     <SidebarMenuButton
                       isActive={item.href === "/"}
                       tooltip={item.label}
+                      className={menuButtonClassName}
                       render={<Link href={item.href} />}
                     >
                       <Icon />
@@ -83,6 +87,7 @@ export function AppSidebar() {
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       tooltip={item.label}
+                      className={menuButtonClassName}
                       render={<Link href={item.href} />}
                     >
                       <Icon />
@@ -102,6 +107,7 @@ export function AppSidebar() {
             <SidebarMenuButton
               size="lg"
               tooltip="Profile"
+              className={menuButtonClassName}
               render={<Link href="/profile" />}
             >
               <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold">

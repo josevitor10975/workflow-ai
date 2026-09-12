@@ -37,7 +37,7 @@ const secondaryNavigation = [
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="font-serif">
       <SidebarHeader className="h-16 justify-center px-4">
         <Link href="/" className="flex items-center overflow-hidden">
           <span className="text-base font-semibold tracking-tight">Workflow AI</span>

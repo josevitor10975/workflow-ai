@@ -31,6 +31,17 @@ export default function RootLayout({
         roboto.className,
       )}
     >
+      <head>
+        <style>{`
+          html {
+            scrollbar-width: none;
+          }
+
+          html::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+      </head>
       <body
         suppressHydrationWarning
         className="min-h-full flex flex-col font-sans"

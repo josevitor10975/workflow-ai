@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  BarChart3,
-  Clock3,
-  GitBranch,
-  Home,
-  Settings,
-  Swords,
-  Users,
-  X,
-} from "lucide-react";
+  faChartColumn,
+  faClock,
+  faCodeBranch,
+  faHouse,
+  faGear,
+  faSwords,
+  faUsers,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,15 +30,15 @@ import {
 } from "@/components/ui/sidebar";
 
 const mainNavigation = [
-  { label: "Home", href: "/", icon: Home },
-  { label: "Workspaces", href: "/workspaces", icon: GitBranch },
-  { label: "Battles", href: "/battles", icon: Swords },
-  { label: "History", href: "/history", icon: Clock3 },
+  { label: "Home", href: "/", icon: faHouse },
+  { label: "Workspaces", href: "/workspaces", icon: faCodeBranch },
+  { label: "Battles", href: "/battles", icon: faSwords },
+  { label: "History", href: "/history", icon: faClock },
 ];
 
 const secondaryNavigation = [
-  { label: "Analytics", href: "/analytics", icon: BarChart3 },
-  { label: "Settings", href: "/settings", icon: Settings },
+  { label: "Analytics", href: "/analytics", icon: faChartColumn },
+  { label: "Settings", href: "/settings", icon: faGear },
 ];
 
 const menuButtonClassName = "!translate-x-0 !transition-none font-sans text-sm";
@@ -64,7 +65,7 @@ export function AppSidebar() {
               aria-label="Close sidebar"
               onClick={toggleSidebar}
             >
-              <X />
+              <FontAwesomeIcon icon={faXmark} />
             </Button>
           </div>
         ) : null}
@@ -77,22 +78,19 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainNavigation.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      isActive={item.href === "/"}
-                      tooltip={item.label}
-                      className={menuButtonClassName}
-                      render={<Link href={item.href} />}
-                    >
-                      <Icon />
-                      <span>{item.label}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
+              {mainNavigation.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    isActive={item.href === "/"}
+                    tooltip={item.label}
+                    className={menuButtonClassName}
+                    render={<Link href={item.href} />}
+                  >
+                    <FontAwesomeIcon icon={item.icon} />
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -102,21 +100,18 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {secondaryNavigation.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      tooltip={item.label}
-                      className={menuButtonClassName}
-                      render={<Link href={item.href} />}
-                    >
-                      <Icon />
-                      <span>{item.label}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
+              {secondaryNavigation.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    tooltip={item.label}
+                    className={menuButtonClassName}
+                    render={<Link href={item.href} />}
+                  >
+                    <FontAwesomeIcon icon={item.icon} />
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -139,7 +134,7 @@ export function AppSidebar() {
                   Free plan
                 </span>
               </span>
-              <Users className="ml-auto" />
+              <FontAwesomeIcon icon={faUsers} className="ml-auto" />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

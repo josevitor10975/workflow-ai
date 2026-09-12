@@ -4,8 +4,8 @@ import {
   faCheck,
   faCodeBranch,
   faScaleBalanced,
-  faSparkles,
   faTableCellsLarge,
+  faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 
 const steps = [
@@ -19,7 +19,7 @@ const steps = [
     number: "02",
     title: "Run a battle",
     description: "Compare multiple AI agents on the same task.",
-    icon: faSparkles,
+    icon: faWandMagicSparkles,
   },
   {
     number: "03",

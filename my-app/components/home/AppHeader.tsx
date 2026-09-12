@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Menu, Moon, Sun } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBell,
+  faMoon,
+  faBars,
+  faSun,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -81,7 +87,7 @@ export function AppHeader() {
             aria-label="Open sidebar"
             onClick={toggleSidebar}
           >
-            <Menu />
+            <FontAwesomeIcon icon={faBars} />
           </Button>
         )}
         <div className="hidden h-5 w-px bg-border sm:block" />
@@ -120,10 +126,10 @@ export function AppHeader() {
           title={isDark ? "Light theme" : "Dark theme"}
           onClick={toggleTheme}
         >
-          {isDark ? <Sun /> : <Moon />}
+          <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
         </Button>
         <Button variant="ghost" size="icon" aria-label="Notifications">
-          <Bell />
+          <FontAwesomeIcon icon={faBell} />
         </Button>
         <Avatar className="size-8">
           <AvatarFallback>JV</AvatarFallback>

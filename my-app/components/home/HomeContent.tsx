@@ -7,7 +7,6 @@ import {
   Image,
   MoreHorizontal,
   Plus,
-  Smartphone,
   Trophy,
 } from "lucide-react";
 
@@ -93,22 +92,19 @@ export function HomeContent() {
               const Icon = workspace.icon;
 
               return (
-                <Link key={workspace.name} href="/workspaces" className="group block">
-                  <Card className="h-full transition-colors group-hover:bg-muted/30">
+                <Link key={workspace.name} href="/workspaces" className="block">
+                  <Card className="h-full">
                     <CardContent className="flex h-full min-h-44 flex-col p-5">
                       <div className="flex items-start justify-between gap-3">
                         <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                           <Icon className="size-4" />
                         </span>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="size-8 text-muted-foreground"
-                          aria-label={`More options for ${workspace.name}`}
-                          onClick={(event) => event.preventDefault()}
+                        <span
+                          aria-hidden="true"
+                          className="flex size-8 items-center justify-center text-muted-foreground"
                         >
-                          <MoreHorizontal />
-                        </Button>
+                          <MoreHorizontal className="size-4" />
+                        </span>
                       </div>
 
                       <div className="mt-4">

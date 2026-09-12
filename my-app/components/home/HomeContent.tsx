@@ -21,11 +21,9 @@ export function HomeContent() {
             Compare AI models. Evaluate what they build. Continue with what works.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/battles/new">
-            <Plus />
-            Start a Battle
-          </Link>
+        <Button render={<Link href="/battles/new" />}>
+          <Plus />
+          Start a Battle
         </Button>
       </section>
 
@@ -92,11 +90,9 @@ export function HomeContent() {
             <p className="text-sm text-primary-foreground/80">
               Give multiple models the same task and keep the result that works best for your workflow.
             </p>
-            <Button asChild variant="secondary">
-              <Link href="/battles/new">
-                Create your first battle
-                <ArrowRight />
-              </Link>
+            <Button render={<Link href="/battles/new" />} variant="secondary">
+              Create your first battle
+              <ArrowRight />
             </Button>
           </CardContent>
         </Card>

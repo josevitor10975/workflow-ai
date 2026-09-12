@@ -1,102 +1,141 @@
 import Link from "next/link";
-import { ArrowRight, GitBranch, Plus, Swords, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  Code2,
+  FileCode2,
+  Folder,
+  Image,
+  MoreHorizontal,
+  Plus,
+  Smartphone,
+  Trophy,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
-const recentBattles = [
-  { name: "Landing page comparison", models: "GPT · Claude · Gemini", status: "Completed" },
-  { name: "Dashboard architecture", models: "Claude · Gemini", status: "Completed" },
-  { name: "Auth flow implementation", models: "GPT · Claude", status: "In review" },
+const recentWorkspaces = [
+  {
+    name: "SaaS Landing Page",
+    lastBattle: "2 days ago",
+    battles: 3,
+    artifacts: 12,
+    icon: Folder,
+  },
+  {
+    name: "API Architecture",
+    lastBattle: "4 days ago",
+    battles: 2,
+    artifacts: 8,
+    icon: Code2,
+  },
+  {
+    name: "E-commerce Dashboard",
+    lastBattle: "1 week ago",
+    battles: 4,
+    artifacts: 16,
+    icon: Image,
+  },
+  {
+    name: "Mobile App UI",
+    lastBattle: "1 week ago",
+    battles: 2,
+    artifacts: 7,
+    icon: FileCode2,
+  },
 ];
 
 export function HomeContent() {
   return (
-    <div className="flex flex-1 flex-col gap-8 p-4 md:p-8">
-      <section className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-        <div className="space-y-2">
-          <p className="text-sm font-medium text-primary">Workflow AI</p>
-          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">Build better with AI, side by side.</h1>
-          <p className="max-w-2xl text-muted-foreground">
-            Compare AI models. Evaluate what they build. Continue with what works.
-          </p>
-        </div>
-        <Button nativeButton={false} render={<Link href="/battles/new" />}>
-          <Plus />
-          Start a Battle
-        </Button>
-      </section>
-
-      <section className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-sm font-medium">Workspaces</CardTitle>
-            <GitBranch className="size-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-semibold">3</p>
-            <p className="text-xs text-muted-foreground">Active projects</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-sm font-medium">Battles</CardTitle>
-            <Swords className="size-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-semibold">12</p>
-            <p className="text-xs text-muted-foreground">Model comparisons</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-sm font-medium">Experiments</CardTitle>
-            <Zap className="size-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-semibold">28</p>
-            <p className="text-xs text-muted-foreground">Artifacts preserved</p>
-          </CardContent>
-        </Card>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent battles</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-1">
-            {recentBattles.map((battle) => (
-              <Link
-                key={battle.name}
-                href="/battles"
-                className="flex items-center justify-between rounded-lg px-3 py-3"
-              >
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">{battle.name}</p>
-                  <p className="truncate text-xs text-muted-foreground">{battle.models}</p>
-                </div>
-                <span className="ml-4 shrink-0 text-xs text-muted-foreground">{battle.status}</span>
-              </Link>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card className="bg-primary text-primary-foreground">
-          <CardHeader>
-            <CardTitle className="text-base">Ready to compare?</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-5">
-            <p className="text-sm text-primary-foreground/80">
-              Give multiple models the same task and keep the result that works best for your workflow.
+    <main className="flex flex-1 flex-col px-4 py-8 md:px-8 md:py-12 lg:px-16">
+      <div className="mx-auto w-full max-w-7xl">
+        <section className="max-w-2xl space-y-5">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Welcome back,
             </p>
-            <Button nativeButton={false} render={<Link href="/battles/new" />} variant="secondary">
-              Create your first battle
+            <h1 className="text-4xl font-medium tracking-tight md:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+              Let&apos;s find the best AI agent for your next project.
+            </h1>
+            <p className="max-w-xl text-base leading-7 text-muted-foreground">
+              Create a workspace, run a battle, compare results and turn the best outcome into real code.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <Button nativeButton={false} render={<Link href="/workspaces/new" />}>
+              <Plus />
+              Create workspace
+            </Button>
+            <Button variant="outline" nativeButton={false} render={<Link href="/battles" />}>
+              View recent battles
+            </Button>
+          </div>
+        </section>
+
+        <section className="mt-20 md:mt-24">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h2 className="text-base font-semibold tracking-tight">Recent workspaces</h2>
+            <Button
+              variant="ghost"
+              size="sm"
+              nativeButton={false}
+              render={<Link href="/workspaces" />}
+              className="text-muted-foreground"
+            >
+              View all
               <ArrowRight />
             </Button>
-          </CardContent>
-        </Card>
-      </section>
-    </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {recentWorkspaces.map((workspace) => {
+              const Icon = workspace.icon;
+
+              return (
+                <Link key={workspace.name} href="/workspaces" className="group block">
+                  <Card className="h-full transition-colors group-hover:bg-muted/30">
+                    <CardContent className="flex h-full min-h-44 flex-col p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                          <Icon className="size-4" />
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="size-8 text-muted-foreground"
+                          aria-label={`More options for ${workspace.name}`}
+                          onClick={(event) => event.preventDefault()}
+                        >
+                          <MoreHorizontal />
+                        </Button>
+                      </div>
+
+                      <div className="mt-4">
+                        <h3 className="truncate text-sm font-semibold">{workspace.name}</h3>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Last battle: {workspace.lastBattle}
+                        </p>
+                      </div>
+
+                      <div className="mt-auto flex items-center gap-4 pt-6 text-xs text-muted-foreground">
+                        <span className="inline-flex items-center gap-1.5">
+                          <Trophy className="size-3.5" />
+                          {workspace.battles} battles
+                        </span>
+                        <span className="inline-flex items-center gap-1.5">
+                          <FileCode2 className="size-3.5" />
+                          {workspace.artifacts} artifacts
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }

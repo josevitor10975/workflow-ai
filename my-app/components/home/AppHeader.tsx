@@ -10,7 +10,7 @@ export function AppHeader() {
   const { state, toggleSidebar } = useSidebar();
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur-md md:px-6">
+    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur-md md:px-6">
       <div className="flex items-center gap-2">
         {state === "collapsed" && (
           <Button variant="ghost" size="icon-sm" aria-label="Open sidebar" onClick={toggleSidebar}>

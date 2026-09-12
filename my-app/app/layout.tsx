@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Roboto, Lora } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-sans",
-});
-
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-serif",
 });
 
 export const metadata: Metadata = {
@@ -28,18 +23,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(
-        "dark",
-        "h-full",
-        "antialiased",
-        roboto.variable,
-        lora.variable,
-        roboto.className,
-      )}
+      className={cn("dark", "h-full", "antialiased", roboto.variable, roboto.className)}
     >
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col font-serif"
+        className="min-h-full flex flex-col font-sans"
       >
         {children}
       </body>

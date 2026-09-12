@@ -32,11 +32,16 @@ function getBreadcrumbs(pathname: string) {
   }
 
   if (segments[0] === "workspaces" && segments[1]) {
-    const workspaceName = workspaceNames[segments[1]] ?? `Workspace ${segments[1]}`;
+    const workspaceName =
+      workspaceNames[segments[1]] ?? `Workspace ${segments[1]}`;
     const breadcrumbs = [
       { label: "Home", href: "/", current: false },
       { label: "Workspaces", href: "/workspaces", current: false },
-      { label: workspaceName, href: `/workspaces/${segments[1]}`, current: segments.length === 2 },
+      {
+        label: workspaceName,
+        href: `/workspaces/${segments[1]}`,
+        current: segments.length === 2,
+      },
     ];
 
     if (segments[2]) {
@@ -86,9 +91,7 @@ export function AppHeader() {
               key={`${item.href}-${item.label}`}
               className="flex min-w-0 items-center gap-2"
             >
-              {index > 0 && (
-                <span className="text-muted-foreground/60">/</span>
-              )}
+              {index > 0 && <span className="text-muted-foreground/60">/</span>}
               {item.current ? (
                 <span className="truncate font-medium text-foreground">
                   {item.label}

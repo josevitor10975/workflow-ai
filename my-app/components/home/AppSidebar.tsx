@@ -50,8 +50,13 @@ export function AppSidebar() {
       <SidebarHeader className="h-16 justify-center px-4">
         {state === "expanded" ? (
           <div className="flex items-center justify-between gap-3">
-            <Link href="/" className="flex items-center overflow-hidden whitespace-nowrap">
-              <span className="text-base font-semibold tracking-tight">Workflow AI</span>
+            <Link
+              href="/"
+              className="flex items-center overflow-hidden whitespace-nowrap"
+            >
+              <span className="text-base font-semibold tracking-tight">
+                Workflow AI
+              </span>
             </Link>
             <Button
               variant="ghost"
@@ -67,7 +72,9 @@ export function AppSidebar() {
       <SidebarSeparator />
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="font-sans text-xs">Workspace</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-sans text-xs">
+            Workspace
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainNavigation.map((item) => {
@@ -90,7 +97,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel className="font-sans text-xs">Manage</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-sans text-xs">
+            Manage
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {secondaryNavigation.map((item) => {
@@ -126,7 +135,9 @@ export function AppSidebar() {
               </span>
               <span className="flex min-w-0 flex-col text-left">
                 <span className="truncate font-medium">José Vitor</span>
-                <span className="truncate text-xs text-muted-foreground">Free plan</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  Free plan
+                </span>
               </span>
               <Users className="ml-auto" />
             </SidebarMenuButton>

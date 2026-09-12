@@ -36,11 +36,11 @@ const secondaryNavigation = [
 ];
 
 const menuButtonClassName =
-  "!translate-x-0 transition-[transform,background-color,color] duration-300 ease-in-out hover:scale-[1.03]";
+  "!translate-x-0 font-sans text-sm transition-[transform,background-color,color] duration-300 ease-in-out hover:scale-[1.03]";
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon" className="font-serif">
+    <Sidebar collapsible="icon" className="font-sans">
       <SidebarHeader className="h-16 justify-center px-4">
         <Link
           href="/"
@@ -54,7 +54,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-sans text-xs">Workspace</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainNavigation.map((item) => {
@@ -78,7 +78,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Manage</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-sans text-xs">Manage</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {secondaryNavigation.map((item) => {

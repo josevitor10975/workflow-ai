@@ -1,36 +1,37 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  ArrowRight,
-  Check,
-  GitBranch,
-  LayoutGrid,
-  Scale,
-  Sparkles,
-} from "lucide-react";
+  faArrowRight,
+  faCheck,
+  faCodeBranch,
+  faScaleBalanced,
+  faSparkles,
+  faTableCellsLarge,
+} from "@fortawesome/free-solid-svg-icons";
 
 const steps = [
   {
     number: "01",
     title: "Create a workspace",
     description: "Organize projects, battles, and results in one place.",
-    icon: LayoutGrid,
+    icon: faTableCellsLarge,
   },
   {
     number: "02",
     title: "Run a battle",
     description: "Compare multiple AI agents on the same task.",
-    icon: Sparkles,
+    icon: faSparkles,
   },
   {
     number: "03",
     title: "Evaluate & choose",
     description: "Review results and select the strongest output.",
-    icon: Scale,
+    icon: faScaleBalanced,
   },
   {
     number: "04",
     title: "Ship with GitHub",
     description: "Turn the chosen result into traceable development work.",
-    icon: GitBranch,
+    icon: faCodeBranch,
   },
 ];
 
@@ -73,7 +74,6 @@ export function AuthRightPanel() {
 
           <div className="relative space-y-1">
             {steps.map((step, index) => {
-              const Icon = step.icon;
               const isLast = index === steps.length - 1;
 
               return (
@@ -89,7 +89,7 @@ export function AuthRightPanel() {
                           : "border-border text-muted-foreground"
                       }`}
                     >
-                      <Icon className="relative h-4 w-4" strokeWidth={1.5} />
+                      <FontAwesomeIcon icon={step.icon} className="size-4" />
                     </div>
                   </div>
 
@@ -119,14 +119,17 @@ export function AuthRightPanel() {
         <div className="mt-8 border-t border-border/80 pt-5">
           <div className="flex items-start gap-3 rounded-xl px-1 py-2">
             <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground">
-              <Check className="h-3.5 w-3.5" strokeWidth={1.8} />
+              <FontAwesomeIcon icon={faCheck} className="size-3.5" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <p className="font-serif text-base font-medium text-foreground">
                   More than a benchmark
                 </p>
-                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="size-3.5 text-muted-foreground"
+                />
               </div>
               <p className="mt-1 text-sm leading-5 text-muted-foreground">
                 Compare. Evaluate. Choose. Build.

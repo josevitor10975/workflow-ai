@@ -39,7 +39,10 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="font-serif">
       <SidebarHeader className="h-16 justify-center px-4">
-        <Link href="/" className="flex items-center overflow-hidden">
+        <Link
+          href="/"
+          className="flex items-center overflow-hidden whitespace-nowrap group-data-[collapsible=icon]:hidden"
+        >
           <span className="text-base font-semibold tracking-tight">Workflow AI</span>
         </Link>
       </SidebarHeader>

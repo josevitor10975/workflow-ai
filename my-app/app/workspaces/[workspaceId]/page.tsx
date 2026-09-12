@@ -3,28 +3,25 @@ import { AppHeader } from "@/components/home/AppHeader";
 import { AppSidebar } from "@/components/home/AppSidebar";
 import { WorkspaceContent } from "@/components/workspaces/WorkspaceContent";
 
-const mockWorkspaceIds = [
-  "saas-landing-page",
-  "api-architecture",
-  "e-commerce-dashboard",
-  "mobile-app-ui",
-];
+const mockWorkspaceIds = ["1", "2", "3", "4"];
 
 export function generateStaticParams() {
   return mockWorkspaceIds.map((workspaceId) => ({ workspaceId }));
 }
 
-export default function WorkspacePage({
+export default async function WorkspacePage({
   params,
 }: {
   params: Promise<{ workspaceId: string }>;
 }) {
+  const { workspaceId } = await params;
+
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <SidebarInset>
         <AppHeader />
-        <WorkspaceContent />
+        <WorkspaceContent workspaceId={workspaceId} />
       </SidebarInset>
     </SidebarProvider>
   );

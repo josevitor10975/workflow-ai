@@ -8,7 +8,7 @@ import {
   faCodeBranch,
   faHouse,
   faGear,
-  faSwords,
+  faWandMagicSparkles,
   faUsers,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
@@ -32,7 +32,7 @@ import {
 const mainNavigation = [
   { label: "Home", href: "/", icon: faHouse },
   { label: "Workspaces", href: "/workspaces", icon: faCodeBranch },
-  { label: "Battles", href: "/battles", icon: faSwords },
+  { label: "Battles", href: "/battles", icon: faWandMagicSparkles },
   { label: "History", href: "/history", icon: faClock },
 ];
 

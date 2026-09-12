@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { Check, LoaderCircle } from "lucide-react";
 
 const STEPS = [
-  "Verificando suas credenciais",
-  "Criando seu workspace",
-  "Preparando seu ambiente de trabalho",
-  "Configurando seus recursos",
+  "Validating your credentials",
+  "Creating your workspace",
+  "Preparing your work environment",
+  "Setting up your resources",
 ];
 
 export function LoginState() {
@@ -28,9 +28,13 @@ export function LoginState() {
       <section className="w-full max-w-[420px]">
         <div className="mb-10 flex items-center gap-2">
           <div className="flex h-6 w-6 items-center justify-center rounded bg-primary">
-            <span className="text-xs font-medium text-primary-foreground">AI</span>
+            <span className="text-xs font-medium text-primary-foreground">
+              AI
+            </span>
           </div>
-          <span className="text-base font-medium text-foreground">Workflow.ai</span>
+          <span className="text-base font-medium text-foreground">
+            Workflow.ai
+          </span>
         </div>
 
         <div className="mb-10 space-y-2">
@@ -56,7 +60,10 @@ export function LoginState() {
               >
                 <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border">
                   {completed ? (
-                    <Check className="h-4 w-4 text-foreground" aria-hidden="true" />
+                    <Check
+                      className="h-4 w-4 text-foreground"
+                      aria-hidden="true"
+                    />
                   ) : active ? (
                     <LoaderCircle
                       className="h-4 w-4 animate-spin text-foreground"
@@ -80,8 +87,8 @@ export function LoginState() {
 
         {isComplete && (
           <div className="mt-6 rounded-md border border-border px-4 py-3 text-sm text-muted-foreground">
-            Login state completed. Navigation to the application will be connected
-            when the real authentication flow is implemented.
+            Login state completed. Navigation to the application will be
+            connected when the real authentication flow is implemented.
           </div>
         )}
       </section>

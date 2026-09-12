@@ -24,9 +24,9 @@ export function HomeContent() {
         <div className="mx-auto w-full max-w-7xl">
           <section className="max-w-2xl space-y-5">
             <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Welcome back,</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">Welcome back,</p>
               <h1 className="text-4xl font-medium tracking-tight md:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">Let&apos;s find the best AI agent for your next project.</h1>
-              <p className="max-w-xl text-base leading-7 text-muted-foreground">Create a workspace, run a battle, compare results and turn the best outcome into real code.</p>
+              <p className="max-w-xl text-lg leading-8 text-muted-foreground">Create a workspace, run a battle, compare results and turn the best outcome into real code.</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <Button onClick={() => setIsCreateWorkspaceOpen(true)} className="transition-[transform,box-shadow] duration-300 ease-in-out hover:scale-[1.02]">
@@ -37,9 +37,9 @@ export function HomeContent() {
           </section>
 
           <section className="mt-20 md:mt-24">
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <h2 className="text-base font-semibold tracking-tight">Recent workspaces</h2>
-              <Button variant="ghost" size="sm" nativeButton={false} render={<Link href="/workspaces" />} className="text-muted-foreground transition-[transform,color] duration-300 ease-in-out hover:scale-[1.02]">View all<ArrowRight /></Button>
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <h2 className="text-lg font-semibold tracking-tight">Recent workspaces</h2>
+              <Button variant="ghost" size="sm" nativeButton={false} render={<Link href="/workspaces" />} className="text-sm text-muted-foreground transition-[transform,color] duration-300 ease-in-out hover:scale-[1.02]">View all<ArrowRight /></Button>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -56,10 +56,10 @@ export function HomeContent() {
                           <span aria-hidden="true" className="flex size-8 items-center justify-center text-muted-foreground transition-transform duration-400 ease-in-out group-hover:scale-105"><MoreHorizontal className="size-4" /></span>
                         </div>
                         <div className="mt-4">
-                          <h3 className="truncate text-sm font-semibold">{workspace.name}</h3>
-                          <p className="mt-1 text-xs text-muted-foreground">Last battle: {workspace.lastBattle}</p>
+                          <h3 className="truncate text-base font-semibold">{workspace.name}</h3>
+                          <p className="mt-1.5 text-sm text-muted-foreground">Last battle: {workspace.lastBattle}</p>
                         </div>
-                        <div className="mt-auto flex items-center gap-4 pt-6 text-xs text-muted-foreground">
+                        <div className="mt-auto flex items-center gap-4 pt-6 text-sm text-muted-foreground">
                           <span className="inline-flex items-center gap-1.5"><Trophy className="size-3.5" />{workspace.battles} battles</span>
                           <span className="inline-flex items-center gap-1.5"><FileCode2 className="size-3.5" />{workspace.artifacts} artifacts</span>
                         </div>

@@ -1,0 +1,231 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  Check,
+  ChevronDown,
+  Folder,
+  Info,
+  Lightbulb,
+  Plus,
+  Target,
+  X,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+type CreateBattleModalProps = {
+  open: boolean;
+  workspaceName: string;
+  onClose: () => void;
+};
+
+const agents = ["GPT-5.6", "Gemini 2.5", "Claude 4.0", "Kimi K2"];
+
+export function CreateBattleModal({
+  open,
+  workspaceName,
+  onClose,
+}: CreateBattleModalProps) {
+  const [selectedAgents, setSelectedAgents] = useState<string[]>([
+    "GPT-5.6",
+    "Gemini 2.5",
+    "Claude 4.0",
+  ]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const toggleAgent = (agent: string) => {
+    setSelectedAgents((current) =>
+      current.includes(agent)
+        ? current.filter((item) => item !== agent)
+        : [...current, agent],
+    );
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background/75 p-4 backdrop-blur-sm"
+      role="presentation"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="create-battle-title"
+        className="grid max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-hidden rounded-xl border border-border bg-background shadow-2xl md:grid-cols-[1.6fr_.8fr]"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <div className="min-h-0 overflow-y-auto p-6 md:p-7">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-4">
+              <div className="mt-1 flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground">
+                <Target className="size-5" />
+              </div>
+              <div>
+                <h2 id="create-battle-title" className="text-2xl font-medium tracking-tight">
+                  Create Battle
+                </h2>
+                <p className="mt-1 text-sm leading-5 text-muted-foreground">
+                  Set up your challenge, choose the agents and let them compete.
+                </p>
+              </div>
+            </div>
+            <Button variant="ghost" size="icon" aria-label="Close create battle modal" onClick={onClose}>
+              <X />
+            </Button>
+          </div>
+
+          <form className="mt-6 space-y-5" onSubmit={(event) => event.preventDefault()}>
+            <div className="space-y-2">
+              <Label htmlFor="battle-workspace">Workspace</Label>
+              <button
+                id="battle-workspace"
+                type="button"
+                className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-background px-3 text-sm"
+              >
+                <span className="flex items-center gap-2 truncate">
+                  <Folder className="size-4 text-muted-foreground" />
+                  {workspaceName}
+                </span>
+                <ChevronDown className="size-4 text-muted-foreground" />
+              </button>
+              <p className="text-xs text-muted-foreground">
+                The battle will be associated with this workspace.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="battle-name">Battle name</Label>
+              <Input id="battle-name" placeholder="e.g. Create the initial landing page" />
+              <p className="text-xs text-muted-foreground">Give your battle a clear and descriptive name.</p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="battle-description">Description (optional)</Label>
+              <textarea
+                id="battle-description"
+                placeholder="Describe the task, context or expected outcome."
+                rows={4}
+                maxLength={500}
+                className="flex min-h-24 w-full resize-y rounded-md border border-input bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
+              />
+              <p className="text-right text-xs text-muted-foreground">0/500</p>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <Label>Select agents</Label>
+                <p className="mt-1 text-xs text-muted-foreground">The same task will be sent to every selected agent.</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                {agents.map((agent) => {
+                  const selected = selectedAgents.includes(agent);
+                  return (
+                    <button
+                      key={agent}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => toggleAgent(agent)}
+                      className={`relative flex min-h-20 flex-col items-start justify-between rounded-lg border p-3 text-left ${selected ? "border-foreground bg-muted" : "border-border"}`}
+                    >
+                      <span className="flex size-7 items-center justify-center rounded-full bg-muted text-xs font-semibold text-foreground">
+                        {agent === "Gemini 2.5" ? "✦" : agent.charAt(0)}
+                      </span>
+                      <span className="text-sm font-medium">{agent}</span>
+                      <span className={`absolute right-2 top-2 flex size-4 items-center justify-center rounded-sm border ${selected ? "border-foreground bg-foreground text-background" : "border-input"}`}>
+                        {selected && <Check className="size-3" />}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <details className="group border-t border-border pt-4">
+              <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-medium [&::-webkit-details-marker]:hidden">
+                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
+                Advanced settings (optional)
+              </summary>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="battle-temperature">Temperature</Label>
+                  <Input id="battle-temperature" placeholder="Default" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="battle-limit">Output limit</Label>
+                  <Input id="battle-limit" placeholder="Default" />
+                </div>
+              </div>
+            </details>
+
+            <div className="flex items-center justify-end gap-2 border-t border-border pt-5">
+              <Button type="button" variant="ghost" onClick={onClose}>Cancel</Button>
+              <Button type="submit" disabled={selectedAgents.length < 2} className="gap-2">
+                <Plus className="size-4" />
+                Create battle
+              </Button>
+            </div>
+          </form>
+        </div>
+
+        <aside className="hidden border-l border-border bg-muted/30 p-7 md:block">
+          <div className="flex items-center gap-3">
+            <Info className="size-4 text-muted-foreground" />
+            <h3 className="text-sm font-medium">Battle summary</h3>
+          </div>
+
+          <div className="mt-6 space-y-5">
+            <div className="flex gap-3">
+              <Folder className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+              <div>
+                <p className="text-xs text-muted-foreground">Workspace</p>
+                <p className="mt-1 text-sm font-medium">{workspaceName}</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Target className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+              <div>
+                <p className="text-xs text-muted-foreground">Agents</p>
+                <p className="mt-1 text-sm leading-5">{selectedAgents.join(", ") || "No agents selected"}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="my-7 border-t border-border" />
+
+          <div className="flex gap-3">
+            <Lightbulb className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+            <div>
+              <h3 className="text-sm font-medium">Tips</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                A good battle has a clear goal, specific instructions and well-defined criteria. This helps the agents produce better results.
+              </p>
+              <button type="button" className="mt-4 text-sm font-medium text-foreground">Learn more →</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}

@@ -59,11 +59,13 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton asChild isActive={item.href === "/"} tooltip={item.label}>
-                      <Link href={item.href}>
-                        <Icon />
-                        <span>{item.label}</span>
-                      </Link>
+                    <SidebarMenuButton
+                      isActive={item.href === "/"}
+                      tooltip={item.label}
+                      render={<Link href={item.href} />}
+                    >
+                      <Icon />
+                      <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -80,11 +82,12 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton asChild tooltip={item.label}>
-                      <Link href={item.href}>
-                        <Icon />
-                        <span>{item.label}</span>
-                      </Link>
+                    <SidebarMenuButton
+                      tooltip={item.label}
+                      render={<Link href={item.href} />}
+                    >
+                      <Icon />
+                      <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -97,17 +100,19 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild size="lg" tooltip="Profile">
-              <Link href="/profile">
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold">
-                  JV
-                </span>
-                <span className="flex min-w-0 flex-col text-left">
-                  <span className="truncate font-medium">José Vitor</span>
-                  <span className="truncate text-xs text-muted-foreground">Free plan</span>
-                </span>
-                <Users className="ml-auto" />
-              </Link>
+            <SidebarMenuButton
+              size="lg"
+              tooltip="Profile"
+              render={<Link href="/profile" />}
+            >
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold">
+                JV
+              </span>
+              <span className="flex min-w-0 flex-col text-left">
+                <span className="truncate font-medium">José Vitor</span>
+                <span className="truncate text-xs text-muted-foreground">Free plan</span>
+              </span>
+              <Users className="ml-auto" />
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

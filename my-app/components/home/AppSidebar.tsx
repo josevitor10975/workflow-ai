@@ -35,22 +35,17 @@ const secondaryNavigation = [
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 
-const menuButtonClassName = "!translate-x-0 font-sans text-sm";
+const menuButtonClassName = "!translate-x-0 !transition-none font-sans text-sm";
 
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="font-sans">
       <SidebarHeader className="h-16 justify-center px-4">
-        <Link
-          href="/"
-          className="flex items-center overflow-hidden whitespace-nowrap group-data-[collapsible=icon]:hidden"
-        >
+        <Link href="/" className="flex items-center overflow-hidden whitespace-nowrap group-data-[collapsible=icon]:hidden">
           <span className="text-base font-semibold tracking-tight">Workflow AI</span>
         </Link>
       </SidebarHeader>
-
       <SidebarSeparator />
-
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="font-sans text-xs">Workspace</SidebarGroupLabel>
@@ -60,14 +55,8 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      isActive={item.href === "/"}
-                      tooltip={item.label}
-                      className={menuButtonClassName}
-                      render={<Link href={item.href} />}
-                    >
-                      <Icon />
-                      <span>{item.label}</span>
+                    <SidebarMenuButton isActive={item.href === "/"} tooltip={item.label} className={menuButtonClassName} render={<Link href={item.href} />}>
+                      <Icon /><span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -75,7 +64,6 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
         <SidebarGroup>
           <SidebarGroupLabel className="font-sans text-xs">Manage</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -84,13 +72,8 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      tooltip={item.label}
-                      className={menuButtonClassName}
-                      render={<Link href={item.href} />}
-                    >
-                      <Icon />
-                      <span>{item.label}</span>
+                    <SidebarMenuButton tooltip={item.label} className={menuButtonClassName} render={<Link href={item.href} />}>
+                      <Icon /><span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -99,19 +82,11 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              tooltip="Profile"
-              className={menuButtonClassName}
-              render={<Link href="/profile" />}
-            >
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold">
-                JV
-              </span>
+            <SidebarMenuButton size="lg" tooltip="Profile" className={menuButtonClassName} render={<Link href="/profile" />}>
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold">JV</span>
               <span className="flex min-w-0 flex-col text-left">
                 <span className="truncate font-medium">José Vitor</span>
                 <span className="truncate text-xs text-muted-foreground">Free plan</span>

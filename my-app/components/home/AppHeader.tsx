@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Plus } from "lucide-react";
+import { Bell } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -12,14 +12,10 @@ export function AppHeader() {
       <div className="flex items-center gap-2">
         <SidebarTrigger />
         <div className="hidden h-5 w-px bg-border sm:block" />
-        <span className="text-sm font-medium text-muted-foreground">Home</span>
+        <span className="hidden text-sm font-medium text-muted-foreground sm:block">Home</span>
       </div>
 
       <div className="flex items-center gap-2">
-        <Button size="sm" className="hidden sm:flex">
-          <Plus />
-          New Battle
-        </Button>
         <Button variant="ghost" size="icon" aria-label="Notifications">
           <Bell />
         </Button>

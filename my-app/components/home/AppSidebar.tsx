@@ -5,7 +5,6 @@ import {
   GitBranch,
   Home,
   Settings,
-  Sparkles,
   Swords,
   Users,
 } from "lucide-react";
@@ -40,10 +39,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="h-16 justify-center px-4">
-        <Link href="/" className="flex items-center gap-2 overflow-hidden">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Sparkles className="size-4" />
-          </span>
+        <Link href="/" className="flex items-center overflow-hidden">
           <span className="text-base font-semibold tracking-tight">Workflow AI</span>
         </Link>
       </SidebarHeader>

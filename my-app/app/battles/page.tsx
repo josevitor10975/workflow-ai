@@ -5,7 +5,7 @@ import { BattlesContent } from "@/components/battles/BattlesContent";
 
 export default function BattlesPage() {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <SidebarInset>
         <AppHeader />

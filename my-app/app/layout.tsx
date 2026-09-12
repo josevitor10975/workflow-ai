@@ -24,7 +24,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "dark",
+        "light",
         "h-full",
         "antialiased",
         roboto.variable,

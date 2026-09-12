@@ -162,7 +162,7 @@ export function CreateBattleModal({
               </div>
             </div>
 
-            <details className="group border-t border-border pt-4">
+            {/* <details className="group border-t border-border pt-4">
               <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-medium [&::-webkit-details-marker]:hidden">
                 <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
                 Advanced settings (optional)
@@ -177,7 +177,7 @@ export function CreateBattleModal({
                   <Input id="battle-limit" placeholder="Default" />
                 </div>
               </div>
-            </details>
+            </details> */}
 
             <div className="flex items-center justify-end gap-2 border-t border-border pt-5">
               <Button type="button" variant="ghost" onClick={onClose}>Cancel</Button>

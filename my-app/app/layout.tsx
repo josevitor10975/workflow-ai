@@ -15,7 +15,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Sign in | Workflow.ai",
+  title: "Sign in | Workflow AI",
   description: "Compare AI agents. Find the best approach for your task.",
 };
 

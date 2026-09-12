@@ -32,9 +32,7 @@ export function LoginState() {
               AI
             </span>
           </div>
-          <span className="text-base font-medium text-foreground">
-            Workflow.ai
-          </span>
+          <span className="text-base font-medium text-foreground">Workflow.ai</span>
         </div>
 
         <div className="mb-10 space-y-2">
@@ -43,7 +41,7 @@ export function LoginState() {
           </h1>
           <p className="text-base text-muted-foreground">
             {isComplete
-              ? "Everything is ready. You can continue to Workflow.ai."
+              ? "Everything is ready. You can continue to Workflow AI."
               : "Please wait while we prepare your workspace."}
           </p>
         </div>

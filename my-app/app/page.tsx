@@ -5,7 +5,7 @@ import { HomeContent } from "@/components/home/HomeContent";
 
 export default function Home() {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <SidebarInset>
         <AppHeader />

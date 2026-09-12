@@ -29,15 +29,17 @@ export function HomeContent() {
               <p className="max-w-xl text-base leading-7 text-muted-foreground">Create a workspace, run a battle, compare results and turn the best outcome into real code.</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <Button onClick={() => setIsCreateWorkspaceOpen(true)}><Plus />Create workspace</Button>
-              <Button variant="outline" nativeButton={false} render={<Link href="/battles" />}>View recent battles</Button>
+              <Button onClick={() => setIsCreateWorkspaceOpen(true)} className="transition-[transform,box-shadow] duration-300 ease-in-out hover:scale-[1.02]">
+                <Plus />Create workspace
+              </Button>
+              <Button variant="outline" nativeButton={false} render={<Link href="/battles" />} className="transition-[transform,background-color] duration-300 ease-in-out hover:scale-[1.02]">View recent battles</Button>
             </div>
           </section>
 
           <section className="mt-20 md:mt-24">
             <div className="mb-4 flex items-center justify-between gap-4">
               <h2 className="text-base font-semibold tracking-tight">Recent workspaces</h2>
-              <Button variant="ghost" size="sm" nativeButton={false} render={<Link href="/workspaces" />} className="text-muted-foreground">View all<ArrowRight /></Button>
+              <Button variant="ghost" size="sm" nativeButton={false} render={<Link href="/workspaces" />} className="text-muted-foreground transition-[transform,color] duration-300 ease-in-out hover:scale-[1.02]">View all<ArrowRight /></Button>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -45,13 +47,13 @@ export function HomeContent() {
                 const Icon = workspace.icon;
                 return (
                   <Link key={workspace.name} href="/workspaces" className="group block">
-                    <Card className="h-full transition-[transform,box-shadow,background-color] duration-200 ease-out group-hover:-translate-y-0.5 group-hover:shadow-md group-hover:bg-muted/20">
+                    <Card className="h-full transition-[transform,box-shadow,background-color] duration-400 ease-in-out group-hover:scale-[1.015] group-hover:shadow-md group-hover:bg-muted/20">
                       <CardContent className="flex h-full min-h-44 flex-col p-5">
                         <div className="flex items-start justify-between gap-3">
-                          <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-transform duration-200 ease-out group-hover:scale-105">
+                          <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-transform duration-400 ease-in-out group-hover:scale-105">
                             <Icon className="size-4" />
                           </span>
-                          <span aria-hidden="true" className="flex size-8 items-center justify-center text-muted-foreground transition-transform duration-200 ease-out group-hover:translate-x-0.5"><MoreHorizontal className="size-4" /></span>
+                          <span aria-hidden="true" className="flex size-8 items-center justify-center text-muted-foreground transition-transform duration-400 ease-in-out group-hover:scale-105"><MoreHorizontal className="size-4" /></span>
                         </div>
                         <div className="mt-4">
                           <h3 className="truncate text-sm font-semibold">{workspace.name}</h3>

@@ -8,11 +8,15 @@ import {
   faCalendarDays,
   faChevronDown,
   faClock,
+  faCodeBranch,
+  faEllipsis,
+  faFileLines,
   faFilter,
   faFolder,
-  faEllipsis,
-  faPlus,
+  faGear,
   faMagnifyingGlass,
+  faPlus,
+  faScaleBalanced,
   faWandMagicSparkles,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -54,6 +58,7 @@ const mockWorkspaces = [
     members: 1,
   },
 ];
+
 const battles = [
   {
     id: "#001",
@@ -95,10 +100,70 @@ const battles = [
     progress: "Pending",
   },
 ];
-const tabs = ["Battles", "Artifacts", "Branches", "Settings"];
+
+const artifacts = [
+  {
+    id: "#001-A",
+    name: "Initial landing page",
+    type: "UI / Code",
+    model: "Claude 4.0",
+    battle: "Battle #001",
+    score: "9.2",
+    status: "Main Artifact",
+    date: "Sep 10, 2026",
+  },
+  {
+    id: "#002-A",
+    name: "Pricing section",
+    type: "UI / Code",
+    model: "Gemini 2.5",
+    battle: "Battle #002",
+    score: "8.7",
+    status: "Experiment",
+    date: "Sep 11, 2026",
+  },
+  {
+    id: "#001-B",
+    name: "Alternative landing page",
+    type: "UI / Code",
+    model: "GPT-5.6",
+    battle: "Battle #001",
+    score: "8.9",
+    status: "Experiment",
+    date: "Sep 10, 2026",
+  },
+];
+
+const branches = [
+  {
+    name: "main",
+    description: "Main development branch",
+    source: "Workspace",
+    status: "Active",
+    updated: "Sep 12, 2026",
+  },
+  {
+    name: "feature/landing-page",
+    description: "Development branch based on the selected landing page.",
+    source: "Artifact #001-A · Claude 4.0",
+    status: "Active",
+    updated: "Sep 10, 2026",
+  },
+  {
+    name: "experiment/gemini-pricing",
+    description: "Experimental branch for the pricing section.",
+    source: "Artifact #002-A · Gemini 2.5",
+    status: "Experiment",
+    updated: "Sep 11, 2026",
+  },
+];
+
+const tabs = ["Battles", "Artifacts", "Branches", "Settings"] as const;
+type WorkspaceTab = (typeof tabs)[number];
 
 export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
   const [isCreateBattleOpen, setIsCreateBattleOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<WorkspaceTab>("Battles");
   const index = Number.parseInt(workspaceId, 10) - 1;
   const workspace = mockWorkspaces[index] ?? mockWorkspaces[0];
 
@@ -112,6 +177,7 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
           <FontAwesomeIcon icon={faArrowLeft} className="size-4" />
           Back to workspaces
         </Link>
+
         <section className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex min-w-0 items-start gap-5">
             <div className="flex size-16 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground">
@@ -165,6 +231,7 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
             </Button>
           </div>
         </section>
+
         <nav
           className="mt-10 border-b border-border"
           aria-label="Workspace sections"
@@ -174,144 +241,361 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
               <button
                 key={tab}
                 type="button"
-                disabled={tab !== "Battles"}
-                className={`relative shrink-0 pb-3 text-sm font-medium ${tab === "Battles" ? "text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-foreground" : "text-muted-foreground disabled:cursor-default"}`}
+                onClick={() => setActiveTab(tab)}
+                aria-current={activeTab === tab ? "page" : undefined}
+                className={`relative shrink-0 pb-3 text-sm font-medium ${
+                  activeTab === tab
+                    ? "text-foreground after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-foreground"
+                    : "text-muted-foreground"
+                }`}
               >
                 {tab}
               </button>
             ))}
           </div>
         </nav>
-        <section className="pt-7">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h2 className="text-xl font-medium tracking-tight">Battles</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Compare experiments and choose the best result for this
-                workspace.
-              </p>
-            </div>
-            <div className="flex w-full gap-2 md:w-auto">
-              <div className="relative min-w-0 flex-1 md:w-64">
-                <FontAwesomeIcon
-                  icon={faMagnifyingGlass}
-                  className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                />
-                <input
-                  aria-label="Search battles"
-                  placeholder="Search battles..."
-                  className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
-                />
+
+        {activeTab === "Battles" && (
+          <section className="pt-7">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="text-xl font-medium tracking-tight">Battles</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Compare experiments and choose the best result for this
+                  workspace.
+                </p>
               </div>
-              <Button variant="outline" className="shrink-0 gap-2">
-                <FontAwesomeIcon icon={faFilter} className="size-4" />
-                Filter
+              <div className="flex w-full gap-2 md:w-auto">
+                <div className="relative min-w-0 flex-1 md:w-64">
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                  />
+                  <input
+                    aria-label="Search battles"
+                    placeholder="Search battles..."
+                    className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                  />
+                </div>
+                <Button variant="outline" className="shrink-0 gap-2">
+                  <FontAwesomeIcon icon={faFilter} className="size-4" />
+                  Filter
+                </Button>
+              </div>
+            </div>
+            <div className="mt-5 space-y-3">
+              {battles.map((battle) => (
+                <article
+                  key={battle.id}
+                  className="rounded-lg border border-border bg-card px-4 py-4 md:px-5 md:py-5"
+                >
+                  <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(180px,1fr)_minmax(170px,.7fr)_minmax(170px,.65fr)_28px] lg:items-center">
+                    <div className="flex min-w-0 gap-4">
+                      <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground">
+                        {battle.id}
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="truncate text-sm font-medium md:text-base">
+                          {battle.title}
+                        </h3>
+                        <p className="mt-1 line-clamp-2 text-sm leading-5 text-muted-foreground">
+                          {battle.description}
+                        </p>
+                        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                          {battle.models.map((model) => (
+                            <span
+                              key={model}
+                              className="inline-flex items-center gap-1.5"
+                            >
+                              <span className="flex size-5 items-center justify-center rounded-full bg-muted text-[9px] font-semibold text-foreground">
+                                {model === "Gemini 2.5" ? "✦" : model.charAt(0)}
+                              </span>
+                              {model}
+                            </span>
+                          ))}
+                          <span className="flex size-6 items-center justify-center rounded-full border border-border text-muted-foreground">
+                            +
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 border-border lg:border-l lg:pl-5">
+                      <span className="rounded-full border border-border bg-muted px-2.5 py-1 text-xs font-medium text-foreground">
+                        {battle.status}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {battle.date}
+                      </span>
+                    </div>
+                    <div className="min-w-0 border-border lg:border-l lg:pl-5">
+                      {battle.winner ? (
+                        <>
+                          <p className="text-xs text-muted-foreground">Winner</p>
+                          <p className="mt-1 truncate text-sm font-medium">
+                            {battle.winner}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-xs text-muted-foreground">
+                            Progress
+                          </p>
+                          <p className="mt-1 text-sm font-medium">
+                            {battle.progress}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                    <div className="border-border lg:border-l lg:pl-5">
+                      {battle.score ? (
+                        <>
+                          <p className="text-xs text-muted-foreground">
+                            Overall score
+                          </p>
+                          <p className="mt-1 text-lg font-medium">
+                            {battle.score}{" "}
+                            <span className="text-sm text-muted-foreground">
+                              / 10
+                            </span>
+                          </p>
+                        </>
+                      ) : (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <FontAwesomeIcon icon={faClock} className="size-4" />
+                          {battle.progress}
+                        </div>
+                      )}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      aria-label={`Open ${battle.title}`}
+                    >
+                      <FontAwesomeIcon icon={faArrowRight} className="size-4" />
+                    </Button>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-sm text-muted-foreground">
+              <span>Showing 4 battles</span>
+              <Button variant="outline" size="sm" className="gap-2">
+                All battles
+                <FontAwesomeIcon icon={faChevronDown} className="size-4" />
               </Button>
             </div>
-          </div>
-          <div className="mt-5 space-y-3">
-            {battles.map((battle) => (
-              <article
-                key={battle.id}
-                className="rounded-lg border border-border bg-card px-4 py-4 md:px-5 md:py-5"
-              >
-                <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(180px,1fr)_minmax(170px,.7fr)_minmax(170px,.65fr)_28px] lg:items-center">
-                  <div className="flex min-w-0 gap-4">
-                    <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground">
-                      {battle.id}
-                    </div>
-                    <div className="min-w-0">
-                      <h3 className="truncate text-sm font-medium md:text-base">
-                        {battle.title}
-                      </h3>
-                      <p className="mt-1 line-clamp-2 text-sm leading-5 text-muted-foreground">
-                        {battle.description}
-                      </p>
-                      <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-                        {battle.models.map((model) => (
-                          <span
-                            key={model}
-                            className="inline-flex items-center gap-1.5"
-                          >
-                            <span className="flex size-5 items-center justify-center rounded-full bg-muted text-[9px] font-semibold text-foreground">
-                              {model === "Gemini 2.5" ? "✦" : model.charAt(0)}
-                            </span>
-                            {model}
-                          </span>
-                        ))}
-                        <span className="flex size-6 items-center justify-center rounded-full border border-border text-muted-foreground">
-                          +
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 border-border lg:border-l lg:pl-5">
-                    <span className="rounded-full border border-border bg-muted px-2.5 py-1 text-xs font-medium text-foreground">
-                      {battle.status}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {battle.date}
-                    </span>
-                  </div>
-                  <div className="min-w-0 border-border lg:border-l lg:pl-5">
-                    {battle.winner ? (
-                      <>
-                        <p className="text-xs text-muted-foreground">Winner</p>
-                        <p className="mt-1 truncate text-sm font-medium">
-                          {battle.winner}
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <p className="text-xs text-muted-foreground">
-                          Progress
-                        </p>
-                        <p className="mt-1 text-sm font-medium">
-                          {battle.progress}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                  <div className="border-border lg:border-l lg:pl-5">
-                    {battle.score ? (
-                      <>
-                        <p className="text-xs text-muted-foreground">
-                          Overall score
-                        </p>
-                        <p className="mt-1 text-lg font-medium">
-                          {battle.score}{" "}
-                          <span className="text-sm text-muted-foreground">
-                            / 10
-                          </span>
-                        </p>
-                      </>
-                    ) : (
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <FontAwesomeIcon icon={faClock} className="size-4" />
-                        {battle.progress}
-                      </div>
-                    )}
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    aria-label={`Open ${battle.title}`}
-                  >
-                    <FontAwesomeIcon icon={faArrowRight} className="size-4" />
-                  </Button>
+          </section>
+        )}
+
+        {activeTab === "Artifacts" && (
+          <section className="pt-7">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="text-xl font-medium tracking-tight">Artifacts</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Review results produced by battles and identify the main artifact or experiments.
+                </p>
+              </div>
+              <div className="flex w-full gap-2 md:w-auto">
+                <div className="relative min-w-0 flex-1 md:w-64">
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                  />
+                  <input
+                    aria-label="Search artifacts"
+                    placeholder="Search artifacts..."
+                    className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                  />
                 </div>
-              </article>
-            ))}
-          </div>
-          <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-sm text-muted-foreground">
-            <span>Showing 4 battles</span>
-            <Button variant="outline" size="sm" className="gap-2">
-              All battles
-              <FontAwesomeIcon icon={faChevronDown} className="size-4" />
-            </Button>
-          </div>
-        </section>
+                <Button variant="outline" className="shrink-0 gap-2">
+                  <FontAwesomeIcon icon={faFilter} className="size-4" />
+                  Filter
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              {artifacts.map((artifact) => (
+                <article
+                  key={artifact.id}
+                  className="rounded-lg border border-border bg-card px-4 py-4 md:px-5 md:py-5"
+                >
+                  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div className="flex min-w-0 items-start gap-4">
+                      <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                        <FontAwesomeIcon icon={faFileLines} className="size-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-sm font-medium md:text-base">{artifact.name}</h3>
+                          <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
+                            {artifact.status}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          {artifact.type} · {artifact.model} · {artifact.battle}
+                        </p>
+                        <p className="mt-2 text-xs text-muted-foreground">{artifact.date}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-6 md:pl-5">
+                      <div>
+                        <p className="text-xs text-muted-foreground">Score</p>
+                        <p className="mt-1 text-base font-medium">{artifact.score} / 10</p>
+                      </div>
+                      <Button variant="ghost" size="icon-sm" aria-label={`Open ${artifact.name}`}>
+                        <FontAwesomeIcon icon={faArrowRight} className="size-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeTab === "Branches" && (
+          <section className="pt-7">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="text-xl font-medium tracking-tight">Branches</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Track development branches connected to selected artifacts and experiments.
+                </p>
+              </div>
+              <Button variant="outline" className="gap-2 self-start">
+                <FontAwesomeIcon icon={faPlus} className="size-4" />
+                New branch
+              </Button>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              {branches.map((branch) => (
+                <article
+                  key={branch.name}
+                  className="rounded-lg border border-border bg-card px-4 py-4 md:px-5 md:py-5"
+                >
+                  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div className="flex min-w-0 items-start gap-4">
+                      <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                        <FontAwesomeIcon icon={faCodeBranch} className="size-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="truncate text-sm font-medium md:text-base">{branch.name}</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">{branch.description}</p>
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          {branch.source} · Updated {branch.updated}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span className="rounded-full border border-border bg-muted px-2.5 py-1 text-xs font-medium">
+                        {branch.status}
+                      </span>
+                      <Button variant="ghost" size="icon-sm" aria-label={`Open ${branch.name}`}>
+                        <FontAwesomeIcon icon={faArrowRight} className="size-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-5 rounded-lg border border-dashed border-border px-5 py-4 text-sm text-muted-foreground">
+              GitHub integration and branch operations will be connected in a later MVP phase. For now, this area represents the intended development workflow.
+            </div>
+          </section>
+        )}
+
+        {activeTab === "Settings" && (
+          <section className="pt-7">
+            <div>
+              <h2 className="text-xl font-medium tracking-tight">Workspace settings</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Manage settings that belong specifically to this workspace.
+              </p>
+            </div>
+
+            <div className="mt-6 max-w-3xl space-y-6">
+              <section className="rounded-lg border border-border bg-card p-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    <FontAwesomeIcon icon={faGear} className="size-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-medium">General</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Basic information and identity for this workspace.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-5 space-y-4">
+                  <label className="block space-y-2">
+                    <span className="text-sm font-medium">Workspace name</span>
+                    <input
+                      defaultValue={workspace.name}
+                      className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    />
+                  </label>
+                  <label className="block space-y-2">
+                    <span className="text-sm font-medium">Description</span>
+                    <textarea
+                      defaultValue={workspace.description}
+                      rows={3}
+                      className="w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm leading-5 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    />
+                  </label>
+                  <div className="flex justify-end">
+                    <Button>Save changes</Button>
+                  </div>
+                </div>
+              </section>
+
+              <section className="rounded-lg border border-border bg-card p-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    <FontAwesomeIcon icon={faScaleBalanced} className="size-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-medium">Evaluation defaults</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Default criteria used as a starting point when creating battles in this workspace.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-5 space-y-3 text-sm">
+                  {[
+                    "Quality",
+                    "Requirements",
+                    "Code quality",
+                    "UX / UI",
+                    "Performance",
+                  ].map((criterion) => (
+                    <label key={criterion} className="flex items-center gap-3">
+                      <input type="checkbox" defaultChecked className="size-4 rounded border-input" />
+                      <span>{criterion}</span>
+                    </label>
+                  ))}
+                </div>
+              </section>
+
+              <section className="rounded-lg border border-destructive/30 bg-card p-5">
+                <h3 className="text-base font-medium">Danger zone</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Permanently delete this workspace and its associated data.
+                </p>
+                <div className="mt-4 flex justify-end">
+                  <Button variant="destructive">Delete workspace</Button>
+                </div>
+              </section>
+            </div>
+          </section>
+        )}
       </div>
+
       <CreateBattleModal
         open={isCreateBattleOpen}
         workspaceName={workspace.name}

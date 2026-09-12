@@ -32,7 +32,7 @@ export function LoginState() {
               AI
             </span>
           </div>
-          <span className="text-base font-medium text-foreground">Workflow.ai</span>
+          <span className="text-base font-medium text-foreground">Workflow AI</span>
         </div>
 
         <div className="mb-10 space-y-2">

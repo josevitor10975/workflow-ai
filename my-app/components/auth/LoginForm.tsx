@@ -24,7 +24,7 @@ export function LoginForm() {
           </span>
         </div>
         <span className="text-base font-medium text-foreground">
-          Workflow.ai
+          Workflow AI
         </span>
       </div>
 

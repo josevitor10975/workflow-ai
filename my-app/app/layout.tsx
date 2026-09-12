@@ -23,7 +23,13 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("dark", "h-full", "antialiased", roboto.variable, roboto.className)}
+      className={cn(
+        "light",
+        "h-full",
+        "antialiased",
+        roboto.variable,
+        roboto.className,
+      )}
     >
       <body
         suppressHydrationWarning

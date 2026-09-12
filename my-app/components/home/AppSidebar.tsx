@@ -35,8 +35,7 @@ const secondaryNavigation = [
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 
-const menuButtonClassName =
-  "!translate-x-0 font-sans text-sm transition-[transform,background-color,color] duration-300 ease-in-out hover:scale-[1.03]";
+const menuButtonClassName = "!translate-x-0 font-sans text-sm";
 
 export function AppSidebar() {
   return (

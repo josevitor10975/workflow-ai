@@ -1,5 +1,16 @@
-import { redirect } from "next/navigation";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppHeader } from "@/components/home/AppHeader";
+import { AppSidebar } from "@/components/home/AppSidebar";
+import { HomeContent } from "@/components/home/HomeContent";
 
 export default function Home() {
-  redirect("/login");
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <AppHeader />
+        <HomeContent />
+      </SidebarInset>
+    </SidebarProvider>
+  );
 }

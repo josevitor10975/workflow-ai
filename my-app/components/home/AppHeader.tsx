@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Menu } from "lucide-react";
+import { Bell, Menu, Moon, Sun } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
+import { useTheme } from "@/components/theme-provider";
 
 const workspaceNames: Record<string, string> = {
   "1": "SaaS Landing Page",
@@ -65,8 +66,10 @@ function getBreadcrumbs(pathname: string) {
 
 export function AppHeader() {
   const { state, toggleSidebar } = useSidebar();
+  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const breadcrumbs = getBreadcrumbs(pathname);
+  const isDark = theme === "dark";
 
   return (
     <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur-md md:px-6">
@@ -110,6 +113,15 @@ export function AppHeader() {
       </div>
 
       <div className="flex items-center gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+          title={isDark ? "Light theme" : "Dark theme"}
+          onClick={toggleTheme}
+        >
+          {isDark ? <Sun /> : <Moon />}
+        </Button>
         <Button variant="ghost" size="icon" aria-label="Notifications">
           <Bell />
         </Button>

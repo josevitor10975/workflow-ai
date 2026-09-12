@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   BarChart3,
@@ -7,8 +9,10 @@ import {
   Settings,
   Swords,
   Users,
+  X,
 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -21,6 +25,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 const mainNavigation = [
@@ -38,12 +43,26 @@ const secondaryNavigation = [
 const menuButtonClassName = "!translate-x-0 !transition-none font-sans text-sm";
 
 export function AppSidebar() {
+  const { state, toggleSidebar } = useSidebar();
+
   return (
     <Sidebar collapsible="icon" className="font-sans">
       <SidebarHeader className="h-16 justify-center px-4">
-        <Link href="/" className="flex items-center overflow-hidden whitespace-nowrap group-data-[collapsible=icon]:hidden">
-          <span className="text-base font-semibold tracking-tight">Workflow AI</span>
-        </Link>
+        {state === "expanded" ? (
+          <div className="flex items-center justify-between gap-3">
+            <Link href="/" className="flex items-center overflow-hidden whitespace-nowrap">
+              <span className="text-base font-semibold tracking-tight">Workflow AI</span>
+            </Link>
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Close sidebar"
+              onClick={toggleSidebar}
+            >
+              <X />
+            </Button>
+          </div>
+        ) : null}
       </SidebarHeader>
       <SidebarSeparator />
       <SidebarContent>
@@ -55,8 +74,14 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton isActive={item.href === "/"} tooltip={item.label} className={menuButtonClassName} render={<Link href={item.href} />}>
-                      <Icon /><span>{item.label}</span>
+                    <SidebarMenuButton
+                      isActive={item.href === "/"}
+                      tooltip={item.label}
+                      className={menuButtonClassName}
+                      render={<Link href={item.href} />}
+                    >
+                      <Icon />
+                      <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -72,8 +97,13 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton tooltip={item.label} className={menuButtonClassName} render={<Link href={item.href} />}>
-                      <Icon /><span>{item.label}</span>
+                    <SidebarMenuButton
+                      tooltip={item.label}
+                      className={menuButtonClassName}
+                      render={<Link href={item.href} />}
+                    >
+                      <Icon />
+                      <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -85,8 +115,15 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" tooltip="Profile" className={menuButtonClassName} render={<Link href="/profile" />}>
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold">JV</span>
+            <SidebarMenuButton
+              size="lg"
+              tooltip="Profile"
+              className={menuButtonClassName}
+              render={<Link href="/profile" />}
+            >
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-xs font-semibold">
+                JV
+              </span>
               <span className="flex min-w-0 flex-col text-left">
                 <span className="truncate font-medium">José Vitor</span>
                 <span className="truncate text-xs text-muted-foreground">Free plan</span>

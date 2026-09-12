@@ -1,0 +1,22 @@
+.sidebarOverlay {
+  --sidebar-collapsed-width: 3rem;
+}
+
+.sidebarOverlay :global([data-slot="sidebar-gap"]) {
+  width: var(--sidebar-collapsed-width) !important;
+}
+
+.sidebarOverlay :global([data-slot="sidebar-container"]) {
+  z-index: 40;
+  box-shadow: none;
+}
+
+.sidebarOverlay :global([data-slot="sidebar"][data-state="expanded"] [data-slot="sidebar-container"]) {
+  box-shadow: 16px 0 40px -24px hsl(var(--foreground) / 0.35);
+}
+
+.sidebarOverlay :global([data-slot="sidebar"][data-state="expanded"] [data-slot="sidebar-inner"]) {
+  background-color: color-mix(in srgb, var(--sidebar) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

@@ -22,6 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { CreateBattleModal } from "@/components/workspaces/CreateBattleModal";
 
 const mockWorkspaces = [
@@ -575,7 +576,7 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
                     "Performance",
                   ].map((criterion) => (
                     <label key={criterion} className="flex items-center gap-3">
-                      <input type="checkbox" defaultChecked className="size-4 rounded border-input" />
+                      <Checkbox defaultChecked />
                       <span>{criterion}</span>
                     </label>
                   ))}

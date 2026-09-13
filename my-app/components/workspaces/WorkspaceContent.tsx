@@ -331,7 +331,9 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
                     <div className="min-w-0 border-border lg:border-l lg:pl-5">
                       {battle.winner ? (
                         <>
-                          <p className="text-xs text-muted-foreground">Winner</p>
+                          <p className="text-xs text-muted-foreground">
+                            Winner
+                          </p>
                           <p className="mt-1 truncate text-sm font-medium">
                             {battle.winner}
                           </p>
@@ -392,9 +394,12 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
           <section className="pt-7">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <h2 className="text-xl font-medium tracking-tight">Artifacts</h2>
+                <h2 className="text-xl font-medium tracking-tight">
+                  Artifacts
+                </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Review results produced by battles and identify the main artifact or experiments.
+                  Review results produced by battles and identify the main
+                  artifact or experiments.
                 </p>
               </div>
               <div className="flex w-full gap-2 md:w-auto">
@@ -425,11 +430,16 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
                   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div className="flex min-w-0 items-start gap-4">
                       <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                        <FontAwesomeIcon icon={faFileLines} className="size-4" />
+                        <FontAwesomeIcon
+                          icon={faFileLines}
+                          className="size-4"
+                        />
                       </div>
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="text-sm font-medium md:text-base">{artifact.name}</h3>
+                          <h3 className="text-sm font-medium md:text-base">
+                            {artifact.name}
+                          </h3>
                           <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
                             {artifact.status}
                           </span>
@@ -437,16 +447,27 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
                         <p className="mt-1 text-sm text-muted-foreground">
                           {artifact.type} · {artifact.model} · {artifact.battle}
                         </p>
-                        <p className="mt-2 text-xs text-muted-foreground">{artifact.date}</p>
+                        <p className="mt-2 text-xs text-muted-foreground">
+                          {artifact.date}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-6 md:pl-5">
                       <div>
                         <p className="text-xs text-muted-foreground">Score</p>
-                        <p className="mt-1 text-base font-medium">{artifact.score} / 10</p>
+                        <p className="mt-1 text-base font-medium">
+                          {artifact.score} / 10
+                        </p>
                       </div>
-                      <Button variant="ghost" size="icon-sm" aria-label={`Open ${artifact.name}`}>
-                        <FontAwesomeIcon icon={faArrowRight} className="size-4" />
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        aria-label={`Open ${artifact.name}`}
+                      >
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="size-4"
+                        />
                       </Button>
                     </div>
                   </div>
@@ -462,7 +483,8 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
               <div>
                 <h2 className="text-xl font-medium tracking-tight">Branches</h2>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Track development branches connected to selected artifacts and experiments.
+                  Track development branches connected to selected artifacts and
+                  experiments.
                 </p>
               </div>
               <Button variant="outline" className="gap-2 self-start">
@@ -480,11 +502,18 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
                   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div className="flex min-w-0 items-start gap-4">
                       <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                        <FontAwesomeIcon icon={faCodeBranch} className="size-4" />
+                        <FontAwesomeIcon
+                          icon={faCodeBranch}
+                          className="size-4"
+                        />
                       </div>
                       <div className="min-w-0">
-                        <h3 className="truncate text-sm font-medium md:text-base">{branch.name}</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">{branch.description}</p>
+                        <h3 className="truncate text-sm font-medium md:text-base">
+                          {branch.name}
+                        </h3>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          {branch.description}
+                        </p>
                         <p className="mt-2 text-xs text-muted-foreground">
                           {branch.source} · Updated {branch.updated}
                         </p>
@@ -494,8 +523,15 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
                       <span className="rounded-full border border-border bg-muted px-2.5 py-1 text-xs font-medium">
                         {branch.status}
                       </span>
-                      <Button variant="ghost" size="icon-sm" aria-label={`Open ${branch.name}`}>
-                        <FontAwesomeIcon icon={faArrowRight} className="size-4" />
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        aria-label={`Open ${branch.name}`}
+                      >
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="size-4"
+                        />
                       </Button>
                     </div>
                   </div>
@@ -504,7 +540,9 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
             </div>
 
             <div className="mt-5 rounded-lg border border-dashed border-border px-5 py-4 text-sm text-muted-foreground">
-              GitHub integration and branch operations will be connected in a later MVP phase. For now, this area represents the intended development workflow.
+              GitHub integration and branch operations will be connected in a
+              later MVP phase. For now, this area represents the intended
+              development workflow.
             </div>
           </section>
         )}
@@ -512,7 +550,9 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
         {activeTab === "Settings" && (
           <section className="pt-7">
             <div>
-              <h2 className="text-xl font-medium tracking-tight">Workspace settings</h2>
+              <h2 className="text-xl font-medium tracking-tight">
+                Workspace settings
+              </h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Manage settings that belong specifically to this workspace.
               </p>
@@ -557,12 +597,18 @@ export function WorkspaceContent({ workspaceId }: { workspaceId: string }) {
               <section className="rounded-lg border border-border bg-card p-5">
                 <div className="flex items-start gap-3">
                   <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                    <FontAwesomeIcon icon={faScaleBalanced} className="size-4" />
+                    <FontAwesomeIcon
+                      icon={faScaleBalanced}
+                      className="size-4"
+                    />
                   </div>
                   <div>
-                    <h3 className="text-base font-medium">Evaluation defaults</h3>
+                    <h3 className="text-base font-medium">
+                      Evaluation defaults
+                    </h3>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      Default criteria used as a starting point when creating battles in this workspace.
+                      Default criteria used as a starting point when creating
+                      battles in this workspace.
                     </p>
                   </div>
                 </div>

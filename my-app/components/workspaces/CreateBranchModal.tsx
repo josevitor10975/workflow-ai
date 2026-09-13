@@ -163,7 +163,8 @@ export function CreateBranchModal({
                 autoComplete="off"
               />
               <p className="text-xs text-muted-foreground">
-                Use a descriptive name such as feature/auth or feature/dashboard.
+                Use a descriptive name such as feature/auth or
+                feature/dashboard.
               </p>
             </div>
 
@@ -260,9 +261,12 @@ export function CreateBranchModal({
                         }}
                         className="flex w-full flex-col rounded-sm px-3 py-2 text-left hover:bg-muted"
                       >
-                        <span className="text-sm font-medium">{artifact.name}</span>
+                        <span className="text-sm font-medium">
+                          {artifact.name}
+                        </span>
                         <span className="mt-0.5 text-xs text-muted-foreground">
-                          {artifact.model} · {artifact.battle} · {artifact.score} / 10
+                          {artifact.model} · {artifact.battle} ·{" "}
+                          {artifact.score} / 10
                         </span>
                       </button>
                     ))}
@@ -272,7 +276,9 @@ export function CreateBranchModal({
             </div>
 
             <div className="rounded-lg border border-border bg-muted/30 p-4">
-              <p className="text-xs font-medium text-muted-foreground">Branch preview</p>
+              <p className="text-xs font-medium text-muted-foreground">
+                Branch preview
+              </p>
               <div className="mt-3 text-sm">
                 <p className="font-medium">{baseBranch}</p>
                 <p className="mt-1 pl-4 text-muted-foreground">

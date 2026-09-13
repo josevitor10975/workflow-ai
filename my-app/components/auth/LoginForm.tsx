@@ -29,9 +29,7 @@ export function LoginForm() {
         </span>
       </div>
       <div className="mb-8 space-y-1">
-        <h2 className="text-3xl font-medium text-foreground">
-          Welcome back
-        </h2>
+        <h2 className="text-3xl font-medium text-foreground">Welcome back</h2>
         <p className="text-base font-normal text-muted-foreground">
           Sign in to continue.
         </p>

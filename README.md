@@ -84,8 +84,16 @@ The product is not intended to establish a universal ranking of AI models. A ran
 
 - Authentication flow: **implemented at frontend level**
 - Onboarding flow: **implemented at frontend level**
-- Other MVP screens: **not yet implemented / pending frontend development**
-- API integration: **not implemented**
+- Home/Dashboard: **implemented at frontend level**
+- Workspace list and workspace view: **implemented at frontend level**
+- Workspace tabs: **implemented at frontend level**
+- Create Workspace flow: **implemented as mocked frontend interaction**
+- Create Battle flow: **implemented as mocked frontend interaction**
+- Create Branch flow: **implemented as mocked frontend interaction**
+- Evaluation defaults UI: **implemented at frontend level**
+- Battle Room: **pending frontend development**
+- Battle Results: **pending frontend development**
+- Real API integration: **not implemented**
 - Backend: **not implemented**
 - Database: **not implemented**
 - Real authentication/session management: **not implemented**
@@ -96,7 +104,7 @@ The product is not intended to establish a universal ranking of AI models. A ran
 
 # Frontend Implementation Checklist
 
-The checklist below maps the current UI progress to the functional requirements defined for the MVP.
+This checklist is the authoritative record of what has actually been developed at the current stage. It tracks **Frontend/UI progress only**. Backend, API, database and external integrations are tracked separately as pending work.
 
 ## 1. Authentication — RF01 / RF02
 
@@ -113,6 +121,7 @@ The checklist below maps the current UI progress to the functional requirements 
 - [x] Onboarding flow
 - [x] Onboarding timeline layout
 - [x] Static onboarding timeline presentation
+- [x] Default application typography applied consistently
 
 ### Backend / Integration — Pending
 
@@ -129,46 +138,151 @@ The checklist below maps the current UI progress to the functional requirements 
 
 ## 2. Home — MVP Navigation
 
-- [ ] Home/Dashboard screen
-- [ ] Welcome state
-- [ ] Create Workspace entry point
-- [ ] Recent Workspaces
-- [ ] Recent Battles
+### Frontend — Completed
+
+- [x] Home/Dashboard screen
+- [x] Welcome state
+- [x] Create Workspace entry point
+- [x] Create Workspace modal
+- [x] Recent Workspaces
+- [x] Recent Battles navigation entry point
+- [x] Workspace navigation from recent Workspaces
+
+### Backend / Integration — Pending
+
+- [ ] Load Workspaces from API
+- [ ] Load recent Battles from API
+- [ ] Persist created Workspaces
+
+**Status:** Frontend Home flow implemented with mocked data and navigation.
 
 ## 3. Workspace Management — RF04
 
-- [ ] Workspaces list
-- [ ] Search Workspaces
-- [ ] Create Workspace
-- [ ] Open Workspace
-- [ ] Edit Workspace
-- [ ] Delete Workspace
-- [ ] Workspace overview
-- [ ] Workspace Battles section
-- [ ] Workspace Artifacts section
-- [ ] Workspace Experiments section
-- [ ] Workspace Settings
+### Frontend — Completed
 
-## 4. Battle Creation — RF05 / RF06
+- [x] Workspaces list
+- [x] Workspace cards
+- [x] Open Workspace
+- [x] Workspace overview
+- [x] Workspace metadata and summary
+- [x] Workspace Battles section
+- [x] Workspace Artifacts section
+- [x] Workspace Branches section
+- [x] Workspace Settings section
+- [x] Navigation between Workspace sections
+- [x] Create Workspace interface
 
-- [ ] Battle information
-- [ ] Task briefing
-- [ ] Model selection
-- [ ] Provider and connection status UI
-- [ ] Inline provider connection flow
-- [ ] Evaluation criteria configuration
-- [ ] Advanced settings
-- [ ] Battle review/create state
+### Frontend — Partial / Pending
 
-Backend/integration pending:
+- [ ] Functional Workspace search
+- [ ] Edit Workspace flow
+- [ ] Delete Workspace flow
+- [ ] Complete Workspace management interactions
+
+### Backend / Integration — Pending
+
+- [ ] Workspace CRUD API
+- [ ] Workspace persistence
+- [ ] Search through persisted Workspaces
+
+**Status:** Core Workspace frontend implemented. Management actions and persistence remain pending.
+
+## 4. Workspace Sections
+
+The current Workspace interface contains four sections:
+
+```text
+Workspace
+├── Battles
+├── Artifacts
+├── Branches
+└── Settings
+```
+
+### Battles — Frontend
+
+- [x] Battles list
+- [x] Battle metadata
+- [x] Models displayed per Battle
+- [x] Status display
+- [x] Winner display
+- [x] Score display
+- [x] Progress display for non-completed Battles
+- [x] Search UI
+- [x] Filter UI
+- [x] Create Battle entry point
+
+### Artifacts — Frontend
+
+- [x] Artifact list
+- [x] Artifact name
+- [x] Artifact type
+- [x] Originating model
+- [x] Originating Battle
+- [x] Score
+- [x] Main Artifact status
+- [x] Experiment status
+- [x] Date metadata
+- [x] Search UI
+
+### Branches — Frontend
+
+- [x] Branch list
+- [x] Main branch representation
+- [x] Feature/experiment branch representation
+- [x] Branch status
+- [x] Branch origin/source
+- [x] Last update metadata
+- [x] New Branch modal
+- [x] Branch name field
+- [x] Create-from branch field
+- [x] Optional Artifact association
+- [x] Branch preview
+
+### Settings — Frontend
+
+- [x] Settings section
+- [x] General settings interface
+- [x] Evaluation defaults interface
+- [x] Evaluation criteria list
+- [x] Reusable Checkbox component for evaluation criteria
+- [x] Workspace-scoped settings presentation
+
+**Status:** Workspace structure and its four main frontend sections are implemented. Data persistence and advanced interactions are pending.
+
+## 5. Battle Creation — RF05 / RF06
+
+### Frontend — Implemented / Mocked
+
+- [x] Create Battle modal
+- [x] Workspace selection presentation
+- [x] Battle name
+- [x] Optional description
+- [x] Multiple model/agent selection
+- [x] Selected/unselected model states
+- [x] Reusable Checkbox component for model selection
+- [x] Provider/API key configuration entry point
+- [x] Battle summary panel
+- [x] Basic validation requiring at least two selected agents
+- [x] Create Battle action presentation
+- [x] Create Branch flow entry point
+
+> **Implementation note:** The current frontend uses a single Create Battle modal. The original requirements describe a multi-step creation flow; that multi-step structure has **not** been implemented yet.
+
+### Backend / Integration — Pending
 
 - [ ] Provider connection API
 - [ ] Provider credential persistence
 - [ ] Model availability from providers
 - [ ] Battle persistence
 - [ ] Real model execution
+- [ ] Real evaluation configuration persistence
 
-## 5. Battle Room — RF07 / RF08
+**Status:** Core Create Battle frontend implemented as a mocked flow. Real execution and provider integration are pending.
+
+## 6. Battle Room — RF07 / RF08
+
+### Frontend — Pending
 
 - [ ] Battle Room screen
 - [ ] Selected models view
@@ -178,9 +292,9 @@ Backend/integration pending:
 - [ ] Completed models
 - [ ] Failed models
 - [ ] Error states
-- [ ] Real-time execution updates
+- [ ] Real-time execution presentation
 
-Backend/integration pending:
+### Backend / Integration — Pending
 
 - [ ] Real AI execution
 - [ ] Execution queue
@@ -190,32 +304,64 @@ Backend/integration pending:
 - [ ] Latency measurement
 - [ ] Provider error handling
 
-## 6. Battle Results — RF09 / RF10 / RF11 / RF12
+**Status:** Pending frontend development.
 
-- [ ] Artifact visualization
-- [ ] Side-by-side artifact comparison
+## 7. Battle Results — RF09 / RF10 / RF11 / RF12
+
+### Frontend — Pending
+
+- [ ] Detailed Artifact visualization
+- [ ] Side-by-side Artifact comparison
 - [ ] Manual evaluation interface
-- [ ] Configurable evaluation criteria
-- [ ] 0–10 scoring
+- [ ] Configurable evaluation criteria in results
+- [ ] 0–10 scoring interface
 - [ ] Ranking view
 - [ ] Per-criterion scores
-- [ ] Execution metrics
-- [ ] Recommended artifact
-- [ ] Artifact selection
+- [ ] Execution metrics presentation
+- [ ] Recommended Artifact
+- [ ] Artifact selection action
 
-## 7. Artifact Preservation / Main Artifact / Experiments — RF13 / RF14 / RF15
+### Backend / Integration — Pending
 
-- [ ] Artifact persistence UI
-- [ ] Main Artifact state
-- [ ] Set selected artifact as Main Artifact
-- [ ] Experiments view
-- [ ] Preserve non-selected artifacts
-- [ ] Reopen preserved experiments
+- [ ] Artifact result persistence
+- [ ] Evaluation persistence
+- [ ] Ranking calculation
+- [ ] Execution metrics collection
+- [ ] Artifact selection persistence
 
-## 8. Settings / Providers / GitHub — RF03 / RF16
+**Status:** Pending frontend development.
 
-- [ ] General Settings
-- [ ] Provider Settings
+## 8. Artifact Preservation / Main Artifact / Experiments — RF13 / RF14 / RF15
+
+### Frontend — Partial
+
+- [x] Main Artifact visual state
+- [x] Experiment visual state
+- [x] Artifact-to-Battle relationship display
+- [x] Artifact-to-Model relationship display
+- [x] Artifact-to-Branch relationship display
+- [ ] Detailed Artifact result view
+- [ ] Set selected Artifact as Main Artifact interaction
+- [ ] Complete Experiments workflow
+- [ ] Reopen preserved Experiment workflow
+
+### Backend / Integration — Pending
+
+- [ ] Artifact persistence
+- [ ] Main Artifact persistence
+- [ ] Experiment persistence
+- [ ] Artifact retrieval
+
+**Status:** Core concepts are represented in the frontend, but the complete selection and preservation workflow is pending.
+
+## 9. Settings / Providers / GitHub — RF03 / RF16
+
+### Frontend — Partial / Pending
+
+- [x] Workspace General Settings interface
+- [x] Workspace Evaluation Defaults interface
+- [x] Provider/API key configuration entry point from Create Battle
+- [ ] Dedicated Provider Settings screen
 - [ ] Provider connection interface
 - [ ] Provider status
 - [ ] Credential management interface
@@ -226,6 +372,18 @@ Backend/integration pending:
 - [ ] Artifact export flow
 - [ ] Security Settings
 
+### Backend / Integration — Pending
+
+- [ ] Provider credential storage and protection
+- [ ] Provider validation
+- [ ] Real provider connections
+- [ ] GitHub OAuth/API integration
+- [ ] Repository and branch retrieval
+- [ ] Artifact export
+- [ ] Secure credential handling
+
+**Status:** Only workspace settings and frontend entry points currently exist. Provider and GitHub integrations are pending.
+
 ---
 
 ## Frontend Progress Overview
@@ -234,25 +392,30 @@ Backend/integration pending:
 | --- | :---: | :---: | :---: |
 | Authentication | ✅ | ❌ | ❌ |
 | Onboarding | ✅ | ❌ | ❌ |
-| Home | ⬜ | ❌ | ❌ |
-| Workspaces | ⬜ | ❌ | ❌ |
-| Workspace | ⬜ | ❌ | ❌ |
-| Create Battle | ⬜ | ❌ | ❌ |
+| Home | ✅ | ❌ | ❌ |
+| Workspaces | 🟡 | ❌ | ❌ |
+| Workspace | ✅ | ❌ | ❌ |
+| Battles | 🟡 | ❌ | ❌ |
+| Create Battle | 🟡 | ❌ | ❌ |
 | Battle Room | ⬜ | ❌ | ❌ |
 | Battle Results | ⬜ | ❌ | ❌ |
-| Artifact Visualization | ⬜ | ❌ | ❌ |
-| Evaluation | ⬜ | ❌ | ❌ |
+| Artifact Visualization | 🟡 | ❌ | ❌ |
+| Evaluation | 🟡 | ❌ | ❌ |
 | Ranking | ⬜ | ❌ | ❌ |
-| Main Artifact | ⬜ | ❌ | ❌ |
-| Experiments | ⬜ | ❌ | ❌ |
+| Main Artifact | 🟡 | ❌ | ❌ |
+| Experiments | 🟡 | ❌ | ❌ |
+| Branches | ✅ | ❌ | ❌ |
+| Create Branch | ✅ | ❌ | ❌ |
+| Workspace Settings | 🟡 | ❌ | ❌ |
 | Provider Settings | ⬜ | ❌ | ❌ |
 | GitHub Integration | ⬜ | ❌ | ❌ |
 | Security Settings | ⬜ | ❌ | ❌ |
 
 **Legend:**
 
-- ✅ Implemented at the current layer
-- ⬜ Not implemented yet at the current layer
+- ✅ Core frontend flow implemented
+- 🟡 Partially implemented at the frontend level
+- ⬜ Not implemented yet at the frontend level
 - ❌ Not implemented / integration pending
 
 ---
@@ -471,22 +634,47 @@ Battle → Evaluate → Select Artifact → Main Artifact → GitHub Repository 
 
 # Application Screens
 
-Planned application navigation:
+Current frontend navigation and implemented screens:
 
 ```text
-Home · Workspaces · Battles · History · Settings · Profile / Logout
+Login
+  ↓
+Onboarding
+  ↓
+Home
+  ↓
+Workspaces
+  ↓
+Workspace
+  ├── Battles
+  │    └── Create Battle
+  ├── Artifacts
+  ├── Branches
+  │    └── New Branch
+  └── Settings
+       └── Evaluation Defaults
 ```
 
-- **Login** — Email/password, GitHub, Google, account creation and password recovery.
-- **Home** — Welcome, Create Workspace and recent Workspaces/Battles.
-- **Workspaces** — Search, create, open, edit and delete.
-- **Workspace** — Overview, Battles, Artifacts, Experiments and Settings.
-- **Create Battle** — Battle Info → Task Briefing → Select Models → Evaluation Criteria → Advanced Settings → Create.
-- **Battle Room** — Real-time execution view.
-- **Battle Results** — Artifacts, comparison, evaluations, metrics, ranking, recommendation and selection.
-- **Settings** — General, Providers, GitHub and Security.
+### Current frontend screens
 
-The checklist in [Frontend Implementation Checklist](#frontend-implementation-checklist) is the authoritative record of what has actually been developed at the current stage.
+- **Login** — Email/password, GitHub, Google, account creation and password recovery.
+- **Onboarding** — Static onboarding timeline and progression UI.
+- **Home** — Welcome state, Create Workspace, recent Workspaces and recent Battles entry point.
+- **Workspaces** — Workspace listing and navigation.
+- **Workspace** — Overview plus Battles, Artifacts, Branches and Settings sections.
+- **Create Battle** — Single frontend modal with Battle information, model selection, API key entry point and summary.
+- **New Branch** — Branch name, source branch, optional Artifact association and preview.
+- **Settings** — Workspace general settings and Evaluation Defaults.
+
+### Pending frontend screens
+
+- **Battle Room** — Execution monitoring.
+- **Battle Results** — Artifact comparison, evaluation, ranking and selection.
+- **Provider Settings** — Dedicated provider/credential management.
+- **GitHub Settings / Integration** — Repository, branch and export workflow.
+- **Security Settings** — Security and account controls.
+
+The [Frontend Implementation Checklist](#frontend-implementation-checklist) is the authoritative record of what has actually been developed at the current stage.
 
 ---
 
@@ -516,4 +704,4 @@ License to be defined.
 
 ---
 
-**Status:** Workflow AI v0.1 — early-stage MVP, currently focused on Frontend/UI development.
+**Status:** Workflow AI v0.1 — early-stage MVP, currently focused on Frontend/UI development. Backend, database, API integrations and external service integrations are not yet implemented.

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
-  faCheck,
   faChevronDown,
   faFolder,
   faCircleInfo,
@@ -15,6 +14,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CreateBranchModal } from "@/components/workspaces/CreateBranchModal";
@@ -213,15 +213,12 @@ export function CreateBattleModal({
                           {agent === "Gemini 2.5" ? "✦" : agent.charAt(0)}
                         </span>
                         <span className="text-sm font-medium">{agent}</span>
-                        <span
-                          className={`absolute right-2 top-2 flex size-4 items-center justify-center rounded-sm border ${selected ? "border-foreground bg-foreground text-background" : "border-input"}`}
-                        >
-                          {selected && (
-                            <FontAwesomeIcon
-                              icon={faCheck}
-                              className="size-3"
-                            />
-                          )}
+                        <span className="absolute right-2 top-2">
+                          <Checkbox
+                            checked={selected}
+                            onCheckedChange={() => toggleAgent(agent)}
+                            aria-label={`Select ${agent}`}
+                          />
                         </span>
                       </button>
                     );

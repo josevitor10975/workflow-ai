@@ -7,7 +7,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 font-serif antialiased p-2 sm:p-3 lg:p-4 bg-background">
+    <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 antialiased p-2 sm:p-3 lg:p-4 bg-background">
       {/* Coluna Esquerda — form específico de cada rota */}
       <div className="relative isolate overflow-hidden bg-background text-foreground flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 order-1">
         <AuthParticles />

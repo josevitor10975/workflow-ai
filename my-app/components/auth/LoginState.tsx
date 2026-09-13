@@ -34,7 +34,7 @@ export function LoginState() {
           </span>
         </div>
         <div className="mb-10 space-y-2">
-          <h1 className="font-serif text-3xl font-medium text-foreground">
+          <h1 className="text-3xl font-medium text-foreground">
             {isComplete ? "Your workspace is ready" : "Setting things up"}
           </h1>
           <p className="text-base text-muted-foreground">
